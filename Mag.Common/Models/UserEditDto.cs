@@ -5,12 +5,6 @@ namespace Mag.Common.Models;
 public class UserEditDto
 {
     [Required(ErrorMessage = "Поле не заполнено")]
-    [EmailAddress(ErrorMessage = "Не правильный формат Email")]
-    [Display(Name = "Новый Email")]
-    [DataType(DataType.EmailAddress)]
-    public string? Email { get; set; }
-    
-    [Required(ErrorMessage = "Поле не заполнено")]
     [Display(Name = "Имя пользователя")]
     public string? UserName { get; set; }
     

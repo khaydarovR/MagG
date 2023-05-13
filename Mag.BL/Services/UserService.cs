@@ -34,22 +34,25 @@ public class UserService: IUserService<AppUser>
     }
 
 
-    public async Task<Response<string>> AddUser(UserRegisterDto model)
+    public async Task<Response<AppUser>> AddUser(UserRegisterDto model)
     {
         var newUser = await MapToAppUser(model);
 
-        var result = await _userManager.CreateAsync(newUser, model.Password);
+        var createUser = await _userManager.CreateAsync(newUser, model.Password);
         
-        if (result.Succeeded)
+        if (createUser.Succeeded)
         {
-            var code = await _userManager.GenerateEmailConfirmationTokenAsync(newUser);
-            await _userManager.AddToRoleAsync(newUser, DefaultRoles.UnknownUser.NormalizedName);
-            await _signInManager.SignInAsync(newUser, true);
-            return new Response<string>(true){ResponseModel = code};
+            var dbUser = await _userManager.FindByEmailAsync(newUser.Email!);
+            var addClaims = await _userManager.AddClaimsAsync(dbUser!, GetClaimsDefault(dbUser!));
+            if (addClaims.Succeeded)
+            {
+                await _signInManager.SignInAsync(newUser, true);
+                return new Response<AppUser>(dbUser!);
+            }
         }
 
-        var response = new Response<string>(false);
-        foreach (var error in result.Errors)
+        var response = new Response<AppUser>(false);
+        foreach (var error in createUser.Errors)
         {
             response.Errors.Add(error.Description);
         }
@@ -59,33 +62,27 @@ public class UserService: IUserService<AppUser>
     public async Task<Response<AppUser>> LoginUser(UserLoginDto model)
     {
         var result = await _signInManager.PasswordSignInAsync
-            (model.Email, model.Password, model.RememberMe, false);
-        
-        if (result.Succeeded)
+            (model.UserName, model.Password, model.RememberMe, false);
+        var userDb = await _userManager.FindByNameAsync(model.UserName);
+        if (result.Succeeded && userDb is not null)
         {
-            return new Response<AppUser>(await _userManager.Users.FirstAsync(u => u.Email == model.Email), true);
+            return new Response<AppUser>(userDb);
         }
 
-        return new Response<AppUser>("Ошибка авторизации", false);
+        return new Response<AppUser>("Ошибка авторизации");
     }
 
     public async Task<Response<AppUser>> GetUserDetail(ClaimsPrincipal claimsPrincipal)
     {
         var result = await _userManager.GetUserAsync(claimsPrincipal);
+        
         if (result is not null)
         {
-            var roles = await _userManager.GetRolesAsync(result);
-            result.Roles = new List<Microsoft.AspNetCore.Identity.IdentityRole>();
-            foreach (var role in roles)
-            {
-                result.Roles.Add(new Microsoft.AspNetCore.Identity.IdentityRole(role));
-            }
-            
-            return new Response<AppUser>(result, true);
+            return new Response<AppUser>(result);
         }
 
         await _signInManager.SignOutAsync();
-        return new Response<AppUser>("Ошибка в куках, зарегистрируйтесть заного", false);
+        return new Response<AppUser>("Ошибка в куках, войдите заного", false);
     }
     
     
@@ -98,22 +95,22 @@ public class UserService: IUserService<AppUser>
     public async Task<Response<AppUser>> Edit(UserEditDto userEditDto, ClaimsPrincipal claimsPrincipal)
     {
         var userDb = await _userManager.GetUserAsync(claimsPrincipal);
-        var email = await _userManager.ChangeEmailAsync(userDb, userEditDto.Email, "token");
+
+        if (userDb is null)
+        {
+            return new Response<AppUser>("Пользователь не найден");
+        }
         var userName = await _userManager.SetUserNameAsync(userDb, userEditDto.UserName);
         var password = await _userManager.ChangePasswordAsync(
             userDb, userEditDto.PasswordOld, userEditDto.PasswordNew);
         
 
-        if (email.Succeeded && userName.Succeeded && password.Succeeded)
+        if (userName.Succeeded && password.Succeeded)
         {
             return new Response<AppUser>(true);
         }
         
         var response = new Response<AppUser>(false);
-        foreach (var error in email.Errors)
-        {
-            response.Errors.Add(error.Description);
-        }
         foreach (var error in userName.Errors)
         {
             response.Errors.Add(error.Description);
@@ -123,57 +120,6 @@ public class UserService: IUserService<AppUser>
             response.Errors.Add(error.Description);
         }
         return response;
-    }
-
-    public async Task<Response<AppUser>> ConfirmEmail(string toEmail , string callbackUrl)
-    {
-        await _emailService.SendEmailAsync(toEmail, "Подтвердите почту в Mag",
-            $"Подтвердите регистрацию, перейдя по ссылке: <a href='{callbackUrl}'>link</a>");
-        return new Response<AppUser>(true);
-    }
-
-    public async Task<Response<string>> CheckConfirm(string userEmail, string code)
-    {
-        if (userEmail == null || code == null)
-        {
-            return new Response<string>("Ошибка подтверждения", false);
-        }
-
-        var user = await _userManager.FindByEmailAsync(userEmail);
-        if (user == null)
-        {
-            return new Response<string>("Ошибка подтверждения: не найден такой Email", false);
-        }
-        var result = await _userManager.ConfirmEmailAsync(user, code);
-        if (result.Succeeded)
-        {
-            return new Response<string>(true);
-        }
-        else
-        {
-            var response = new Response<string>(false);
-            response.Errors.Add( result.Errors.First().Description);
-            return response;
-        }
-    }
-
-
-    public async Task<Response<UserEditDto>> GetDataForEdit(ClaimsPrincipal claimsPrincipal)
-    {
-        var result = await _userManager.GetUserAsync(claimsPrincipal);
-        
-        if (result is not null)
-        {
-            var initData = new UserEditDto()
-            {
-                Email = result.Email,
-                PasswordOld = result.PasswordHash,
-                PasswordNew = result.PasswordHash,
-                UserName = result.UserName
-            };
-            return new Response<UserEditDto>(initData);
-        }
-        return new Response<UserEditDto>("Ошибка, не найден пользователь");
     }
 
 
@@ -190,5 +136,17 @@ public class UserService: IUserService<AppUser>
             SecurityStamp = DateTime.Now.ToLongTimeString()
         };
         return newUser ;
+    }
+    
+    private List<Claim> GetClaimsDefault(AppUser newUser)
+    {
+        var claims = new List<Claim>
+        {
+            new Claim(ClaimTypes.Email, newUser.Email, ClaimValueTypes.Integer),
+            new Claim(ClaimTypes.Name, newUser.UserName),
+            new Claim(ClaimTypes.Role, newUser.Role.Name),
+        };
+
+        return claims;
     }
 }

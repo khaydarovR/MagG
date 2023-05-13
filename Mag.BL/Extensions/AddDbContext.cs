@@ -11,6 +11,7 @@ public static class AddDbContext
     {
         services.AddDbContext<AppDbContext>((options) =>
         {
+            
             options.UseMySql(
                     serverVersion: new MySqlServerVersion("8.0.32"),
                     connectionString: config.GetConnectionString("MySql")

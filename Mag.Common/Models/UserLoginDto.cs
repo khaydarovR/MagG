@@ -5,10 +5,8 @@ namespace Mag.Common.Models;
 public class UserLoginDto
 {
     [Required(ErrorMessage = "Обязательное поле")]
-    [EmailAddress(ErrorMessage = "Не правильный формат Email")]
-    [Display(Name = "Email")]
-    [DataType(DataType.EmailAddress)]
-    public string Email { get; set; }
+    [Display(Name = "Имя пользователя")]
+    public string UserName { get; set; }
     
     [Required(ErrorMessage = "Обязательное поле")]
     [Display(Name = "Пароль")]

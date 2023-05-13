@@ -1,4 +1,5 @@
-﻿using Mag.Common.Interfaces;
+﻿using Mag.Common;
+using Mag.Common.Interfaces;
 using Mag.Common.Models;
 using Mag.DAL.Entities;
 using Microsoft.AspNetCore.Authorization;
@@ -9,8 +10,7 @@ namespace Mag.Web.Controllers;
 public class Account : Controller
 {
     private readonly IUserService<AppUser> _userService;
-
-
+    
     public Account(IUserService<AppUser> userService)
     {
         _userService = userService;
@@ -35,12 +35,7 @@ public class Account : Controller
         var response = await _userService.AddUser(model);
         if (response.IsSuccessful)
         {
-            var callbackUrl = Url.Action("ConfirmEmail", "Account",
-                new { userEmail = model.Email, code = response.ResponseModel },
-                protocol: HttpContext.Request.Scheme);
-            
-            await _userService.ConfirmEmail(model.Email ,callbackUrl);
-            return Content("Для завершения регистрации проверьте электронную почту и перейдите по ссылке, указанной в письме");
+            return RedirectToAction("Detail");
         }
 
         foreach (var e in response.Errors)
@@ -69,7 +64,7 @@ public class Account : Controller
         var response = await _userService.LoginUser(model);
         if (response.IsSuccessful)
         {
-            return RedirectToAction("Detail", response.ResponseModel);
+            return RedirectToAction("Detail");
         }
         else
         {
@@ -114,10 +109,17 @@ public class Account : Controller
     }
 
 
-    [Authorize]
-    public ActionResult Edit()
+    [Authorize(Roles = DefaultRoles.rootConst)]
+    public async Task<ActionResult> Edit()
     {
-        return View();
+        var initData = await _userService.GetUserDetail(HttpContext.User);
+        if (!initData.IsSuccessful)
+        {
+            return View("Error");
+        }
+        var editDto = new UserEditDto()
+            {UserName = initData.ResponseModel.UserName };
+        return View(editDto);
     }
     
     
@@ -141,20 +143,5 @@ public class Account : Controller
             ModelState.AddModelError("", e);
         }
         return View();
-    }
-    
-
-    [HttpGet]
-    [AllowAnonymous]
-    public async Task<IActionResult> ConfirmEmail(string userEmail, string code)
-    {
-        var response = await _userService.CheckConfirm(userEmail, code);
-
-        if (response.IsSuccessful)
-        {
-            return RedirectToAction("Detail");
-        }
-        var errors = response.Errors;
-        return View("Error", errors);
     }
 }

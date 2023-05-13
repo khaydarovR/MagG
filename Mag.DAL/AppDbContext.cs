@@ -3,7 +3,6 @@ using Mag.DAL.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using IdentityRole = Mag.Common.IdentityRole;
 
 namespace Mag.DAL;
 
@@ -20,6 +19,11 @@ public class AppDbContext: IdentityDbContext<AppUser, IdentityRole<Guid>, Guid,
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
         InitDefaultData();
+    }
+    
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
     }
 
     private void InitDefaultData()
@@ -41,13 +45,9 @@ public class AppDbContext: IdentityDbContext<AppUser, IdentityRole<Guid>, Guid,
         {
             foreach (var role in DefaultRoles.Roles)
             {
-                Roles.Add(new IdentityRole<Guid>()
-                {
-                    Id = Guid.NewGuid(), Name = role.Name, NormalizedName = role.NormalizedName
-                });
+                Roles.Add(new IdentityRole<Guid>() { Id = Guid.NewGuid(), Name = role.Name });
             }
         }
-        
         SaveChanges();
     }
 }

@@ -17,10 +17,12 @@ public static class AddIdentity
     {
         services.AddIdentity<AppUser, IdentityRole<Guid>>(options =>
             {
-                options.SignIn.RequireConfirmedEmail = true && options.User.RequireUniqueEmail;
+                options.SignIn.RequireConfirmedEmail = false;
+                options.User.RequireUniqueEmail = true;
+                options.Password.RequireDigit = false;
+                options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+ ";
             })
             .AddEntityFrameworkStores<AppDbContext>()
-            .AddDefaultTokenProviders()
             .AddSignInManager<SignInManager<AppUser>>()
             .AddUserManager<UserManager<AppUser>>()
             .AddDefaultTokenProviders();

@@ -7,5 +7,5 @@ public class AppUser: IdentityUser<Guid>
 {
     public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
     public UserState UserState { get; set; }
-    public List<IdentityRole> Roles { get; set; }
+    public IdentityRole Role { get; set; }
 }

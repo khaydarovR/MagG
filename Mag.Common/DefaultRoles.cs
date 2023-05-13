@@ -1,20 +1,26 @@
 ﻿using System.Security.Cryptography;
+using Microsoft.AspNetCore.Identity;
 
 namespace Mag.Common;
 
 public static class DefaultRoles
 {
+    public const string rootConst = "Root пользователь";
+    public const string adminConst = "Администратор";
+    public const string userConst = "Пользователь";
+    public const string unknownConst = "Требуется подтверждение";
+    
     public static readonly IdentityRole Root = new IdentityRole() 
-        { Name = "Root пользователь со всеми правами", NormalizedName = "root" };
+        { Name = rootConst };
     
     public static readonly IdentityRole Admin = new IdentityRole() 
-        { Name = "Администратор", NormalizedName = "admin" };
+        { Name = adminConst };
     
     public static readonly IdentityRole User = new IdentityRole() 
-        { Name = "Пользователь", NormalizedName = "user" };
+        { Name = userConst };
     
     public static readonly IdentityRole UnknownUser = new IdentityRole() 
-        { Name = "Не подтвержденный пользователь", NormalizedName = "unknown" };
+        { Name = unknownConst };
     
     public static IdentityRole[] Roles = new[]
     {
@@ -23,10 +29,4 @@ public static class DefaultRoles
         User,
         UnknownUser
     };
-}
-
-public record IdentityRole
-{
-    public string Name { get; init; }
-    public string NormalizedName { get; init; }
 }
