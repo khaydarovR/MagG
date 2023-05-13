@@ -15,4 +15,8 @@
       <ProjectReference Include="..\Mag.Common\Mag.Common.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Migrations" />
+    </ItemGroup>
+
 </Project>

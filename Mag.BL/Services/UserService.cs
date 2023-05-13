@@ -129,7 +129,7 @@ public class UserService: IUserService<AppUser>
         {
             Email = model.Email,
             PhoneNumber = model.Phone,
-            UserState = await _context.UserState.FirstAsync(s => s.State == StateEnum.Active),
+            UserState = StateEnum.Active,
             CreatedDate = DateTime.Today,
             EmailConfirmed = false,
             UserName = model.Email,
@@ -144,7 +144,7 @@ public class UserService: IUserService<AppUser>
         {
             new Claim(ClaimTypes.Email, newUser.Email, ClaimValueTypes.Integer),
             new Claim(ClaimTypes.Name, newUser.UserName),
-            new Claim(ClaimTypes.Role, newUser.Role.Name),
+            new Claim(ClaimTypes.Role, DefaultRoles.unknownConst),
         };
 
         return claims;

@@ -6,6 +6,5 @@ namespace Mag.DAL.Entities;
 public class AppUser: IdentityUser<Guid>
 {
     public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
-    public UserState UserState { get; set; }
-    public IdentityRole Role { get; set; }
+    public StateEnum UserState { get; set; }
 }

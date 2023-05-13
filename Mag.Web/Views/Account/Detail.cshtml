@@ -1,4 +1,5 @@
-﻿@model Mag.DAL.Entities.AppUser;
+﻿@using System.Security.Claims
+@model Mag.DAL.Entities.AppUser;
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @addTagHelper *, AuthoringTagHelpers
 
@@ -17,7 +18,7 @@
               <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
                    alt="Avatar" class="img-fluid my-5" style="width: 80px;"/>
               <h5>@Model.UserName</h5>
-              <p><small>@Model.Role.Name</small></p>
+              <p><small>@User.FindFirst(ClaimTypes.Role).Value</small></p>
             </div>
             <div class="col-md-8">
               <div class="card-body p-4">

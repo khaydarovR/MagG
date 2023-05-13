@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Mag.Common;
 using Mag.Common.Interfaces;
 using Mag.DAL.Entities;
@@ -9,26 +10,65 @@ namespace Mag.BL.Extensions;
 
 public static class DbInitExtensions
 {
-    public static async Task DbInit(this IServiceScope scope, IConfiguration configuration)
+    public static async Task DbInit(IServiceScope scope, IConfiguration configuration)
     {
-        var userManager = scope.ServiceProvider.GetService<UserManager<AppUser>>();
+        var userManager = (UserManager<AppUser>)scope.ServiceProvider.GetService(typeof(UserManager<AppUser>))!;
+
+        //await InitDefaultRoles(roleManager);
+        
+        await InitRootUser(configuration, userManager);
+        
+        
+    }
+
+    private static async Task InitDefaultRoles(RoleManager<IdentityRole> roleManager)
+    {
+        if (roleManager.Roles.Any())
+        {
+            foreach (var role in DefaultRoles.Roles)
+            {
+                var result = await roleManager.CreateAsync(role);
+                if (result.Succeeded)
+                {
+                    Console.WriteLine("Роль по умолчанию добавлен: " + role.Name);
+                }
+
+                Console.WriteLine("Ошибка при добавлении роли: " + role.Name);
+            }
+        }
+    }
+
+    private static async Task InitRootUser(IConfiguration configuration, UserManager<AppUser> userManager)
+    {
         if (userManager.Users.Any(u => u.UserName == "root"))
         {
             Console.WriteLine("root пользователь уже зарегистрирован");
             return;
         }
-        var password = configuration["ROOT_PAS"]?? "Root2mag!";
+
         var login = "root";
-        var email = configuration["ROOT_MAIL"] ?? "root@mail.ru";
-        var root = new AppUser() { UserName = login, Email = email, Role = DefaultRoles.Root };
+        var password = configuration["ROOT_PASSWORD"] ?? "Root2mag!";
+        var email = configuration["ROOT_EMAIL"] ?? "root@mail.ru";
+        var phone = configuration["ROOT_PHONE"] ?? "777";
+        
+        var root = new AppUser() { UserName = login, Email = email, PhoneNumber = phone};
         var result = await userManager.CreateAsync(root, password);
         if (result.Succeeded)
         {
-            Console.WriteLine("root пользователь добавлен (пароль): " + password);
+            var rootDb = await userManager.FindByNameAsync(root.UserName);
+            var claimResult = await userManager.AddClaimAsync(rootDb, new Claim(ClaimTypes.Role, DefaultRoles.rootConst));
+            if (claimResult.Succeeded)
+            {
+                Console.WriteLine("root пользователь добавлен (пароль): " + password);
+            }
+            else
+            {
+                Console.WriteLine("Ошибка при добавлении прав root (claim): " + claimResult.Errors);
+            }
         }
         else
         {
-            Console.WriteLine("Ошибка добавления root пользователя");
+            Console.WriteLine("Ошибки добавления root пользователя: " + result.Errors);
         }
     }
 }
