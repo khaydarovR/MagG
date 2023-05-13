@@ -1,0 +1,69 @@
+﻿@model Mag.DAL.Entities.AppUser;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, AuthoringTagHelpers
+
+@{
+    ViewData["Title"] = "Кабинет";
+}
+
+<section class="" style="background-color: #f4f5f7;">
+  <div class="container py-5">
+    <div class="row d-flex justify-content-start align-items-start">
+      <div class="col col-lg-6 mb-4 mb-lg-0">
+        <div class="card mb-3 text-dark" style="border-radius: .5rem;">
+          <div class="row g-0">
+            <div class="col-md-4 gradient-custom text-center text-dark"
+                 style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
+              <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
+                   alt="Avatar" class="img-fluid my-5" style="width: 80px;"/>
+              <h5>@Model.UserName</h5>
+              @foreach (var role in Model.Roles)
+              {
+                <p><small>@role.Name</small></p>
+              }
+            </div>
+            <div class="col-md-8">
+              <div class="card-body p-4">
+                <h6>Информация по
+                  <p><small>@Model.Id</small></p></h6>
+                <hr class="mt-0 mb-4">
+                <div class="row pt-1">
+                  <div class="col-6 mb-3">
+                    <h6>Email</h6>
+                    <p class="text-muted">@Model.Email</p>
+                  </div>
+                  <div class="col-6 mb-3">
+                    <h6>Телефон</h6>
+                    <p class="text-muted">@Model.PhoneNumber</p>
+                  </div>
+                </div>
+                <h6>Управление</h6>
+                <hr class="mt-0 mb-4">
+                <div class="row pt-1">
+                  <a class="btn btn-info my-1" asp-action="Edit">Редактировать</a>
+                  <a type="button" class="btn btn-danger my-1" asp-action="Logout">Выйти</a>
+                </div>
+                <div class="d-flex justify-content-start">
+                  <a href="#!"><i class="fab fa-facebook-f fa-lg me-3"></i></a>
+                  <a href="#!"><i class="fab fa-twitter fa-lg me-3"></i></a>
+                  <a href="#!"><i class="fab fa-instagram fa-lg"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col col-lg-6 mb-4 mb-lg-0">
+        <a type="button" class="pt-4 text-black text-center btn btn-outline-info m-1 w-25" style="color: black; height: 150px">
+          Покупатели1
+        </a>
+        <a type="button" class="pt-4 text-black text-center btn btn-outline-info m-1 w-25" style="color: black; height: 150px">
+          Покупатели2
+        </a>
+        <a type="button" class="pt-4 text-black text-center btn btn-outline-info m-1 w-25" style="color: black; height: 150px">
+          Покупатели3
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
