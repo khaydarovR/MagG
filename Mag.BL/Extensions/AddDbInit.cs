@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using Mag.BL.Utils;
 using Mag.Common;
 using Mag.Common.Interfaces;
 using Mag.DAL.Entities;
@@ -56,7 +57,8 @@ public static class DbInitExtensions
         if (result.Succeeded)
         {
             var rootDb = await userManager.FindByNameAsync(root.UserName);
-            var claimResult = await userManager.AddClaimAsync(rootDb, new Claim(ClaimTypes.Role, DefaultRoles.rootConst));
+            var claimResult = await userManager.AddClaimsAsync
+                (rootDb!, CreateDefaultClaims.Get(rootDb.UserName, rootDb.Email, DefaultRoles.rootConst));
             if (claimResult.Succeeded)
             {
                 Console.WriteLine("root пользователь добавлен (пароль): " + password);

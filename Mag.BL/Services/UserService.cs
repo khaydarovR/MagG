@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using Mag.BL.Utils;
 using Mag.Common;
 using Mag.Common.Interfaces;
 using Mag.Common.Models;
@@ -16,21 +17,16 @@ public class UserService: IUserService<AppUser>
     private readonly UserManager<AppUser> _userManager;
     private readonly AppDbContext _context;
     private readonly SignInManager<AppUser> _signInManager;
-    private readonly RoleManager<IdentityRole<Guid>> _roleManager;
-    private readonly EmailService _emailService;
 
     public UserService(
         UserManager<AppUser> userManager, 
         AppDbContext context, 
         SignInManager<AppUser> signInManager,
-        RoleManager<IdentityRole<Guid>> roleManager,
         EmailService emailService)
     {
         _userManager = userManager;
         _context = context;
         _signInManager = signInManager;
-        _roleManager = roleManager;
-        _emailService = emailService;
     }
 
 
@@ -43,7 +39,8 @@ public class UserService: IUserService<AppUser>
         if (createUser.Succeeded)
         {
             var dbUser = await _userManager.FindByEmailAsync(newUser.Email!);
-            var addClaims = await _userManager.AddClaimsAsync(dbUser!, GetClaimsDefault(dbUser!));
+            var addClaims = await _userManager
+                .AddClaimsAsync(dbUser!, CreateDefaultClaims.Get(dbUser.Email, dbUser.UserName));
             if (addClaims.Succeeded)
             {
                 await _signInManager.SignInAsync(newUser, true);
@@ -136,17 +133,5 @@ public class UserService: IUserService<AppUser>
             SecurityStamp = DateTime.Now.ToLongTimeString()
         };
         return newUser ;
-    }
-    
-    private List<Claim> GetClaimsDefault(AppUser newUser)
-    {
-        var claims = new List<Claim>
-        {
-            new Claim(ClaimTypes.Email, newUser.Email, ClaimValueTypes.Integer),
-            new Claim(ClaimTypes.Name, newUser.UserName),
-            new Claim(ClaimTypes.Role, DefaultRoles.unknownConst),
-        };
-
-        return claims;
     }
 }

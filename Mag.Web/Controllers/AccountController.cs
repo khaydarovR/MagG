@@ -109,7 +109,7 @@ public class Account : Controller
     }
 
 
-    [Authorize(Roles = DefaultRoles.rootConst)]
+    [Authorize]
     public async Task<ActionResult> Edit()
     {
         var initData = await _userService.GetUserDetail(HttpContext.User);
