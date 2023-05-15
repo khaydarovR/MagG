@@ -29,4 +29,12 @@ public static class DefaultRoles
         User,
         UnknownUser
     };
+
+    public static List<string> RolesString = new List<string>()
+    {
+        rootConst,
+        adminConst,
+        userConst,
+        unknownConst
+    };
 }

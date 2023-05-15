@@ -7,13 +7,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Mag.Web.Controllers;
 
-public class Account : Controller
+public class AccountController: Controller
 {
-    private readonly IUserService<AppUser> _userService;
+    private readonly IAccountService<AppUser> _accountService;
     
-    public Account(IUserService<AppUser> userService)
+    public AccountController(IAccountService<AppUser> userService)
     {
-        _userService = userService;
+        _accountService = userService;
     }
     
     
@@ -32,7 +32,7 @@ public class Account : Controller
             return View(model);
         }
     
-        var response = await _userService.AddUser(model);
+        var response = await _accountService.AddUser(model);
         if (response.IsSuccessful)
         {
             return RedirectToAction("Detail");
@@ -61,7 +61,7 @@ public class Account : Controller
             return View(model);
         }
         
-        var response = await _userService.LoginUser(model);
+        var response = await _accountService.LoginUser(model);
         if (response.IsSuccessful)
         {
             return RedirectToAction("Detail");
@@ -80,7 +80,7 @@ public class Account : Controller
     [Authorize]
     public async Task<ActionResult> Detail()
     {
-        var response = await _userService.GetUserDetail(HttpContext.User);
+        var response = await _accountService.GetUserDetail(HttpContext.User);
         
         if (response.IsSuccessful)
         {
@@ -98,7 +98,7 @@ public class Account : Controller
     [Authorize]
     public async Task<ActionResult> Logout()
     {
-        var response = await _userService.ExitFromAccount();
+        var response = await _accountService.ExitFromAccount();
         
         if (response.IsSuccessful)
         {
@@ -112,7 +112,7 @@ public class Account : Controller
     [Authorize]
     public async Task<ActionResult> Edit()
     {
-        var initData = await _userService.GetUserDetail(HttpContext.User);
+        var initData = await _accountService.GetUserDetail(HttpContext.User);
         if (!initData.IsSuccessful)
         {
             return View("Error");
@@ -131,7 +131,7 @@ public class Account : Controller
         {
             return View(userEditDto);
         }
-        var response = await _userService.Edit(userEditDto, HttpContext.User);
+        var response = await _accountService.Edit(userEditDto, HttpContext.User);
         
         if (response.IsSuccessful)
         {

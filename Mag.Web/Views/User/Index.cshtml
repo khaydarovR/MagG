@@ -1,0 +1,62 @@
+@model Mag.Common.ViewModels.UserVM;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, AuthoringTagHelpers
+
+@{
+    ViewBag.Title = "Пользователи";
+    Layout = "_Layout";
+}
+
+<h2>Пользователи</h2>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title text-uppercase mb-0">Управление пользователями</h5>
+            </div>
+            <div class="table-responsive">
+                <table class="table no-wrap user-table mb-0">
+                    <thead>
+                    <tr>
+                        <th scope="col" class="border-0 text-uppercase font-medium pl-4">#</th>
+                        <th scope="col" class="border-0 text-uppercase font-medium">Пользователь</th>
+                        <th scope="col" class="border-0 text-uppercase font-medium">Email</th>
+                        <th scope="col" class="border-0 text-uppercase font-medium">Создан</th>
+                        <th scope="col" class="border-0 text-uppercase font-medium">Состояние</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var user in Model.Users)
+                    {
+                        <tr>
+                        <td class="pl-4">@user.Id</td>
+                        <td>
+                            <h5 class="font-medium mb-0">@user.UserName</h5>
+                            <span class="text-muted">@user.Role</span>
+                        </td> 
+                        <td>
+                            <span class="text-muted">@user.Email</span><br>
+                            <span class="text-muted">@user.PhoneNumber</span>
+                        </td>
+                        <td>
+                            <span class="text-muted">@user.CreatedDate</span><br>
+                        </td>
+                        <td>
+                            <span class="text-muted">@user.UserState</span><br>
+                        </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-guid="@user.Id" type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2">
+                                    Редактировать
+                                </a>
+                                <a asp-action="Edit" type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2">
+                                    Удалить
+                                </a>
+                            </td>
+                    </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

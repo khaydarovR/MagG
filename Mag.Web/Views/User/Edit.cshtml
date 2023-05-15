@@ -1,0 +1,31 @@
+@using System.Collections
+@using Mag.DAL.Entities
+@using Microsoft.AspNetCore.Identity
+@model Mag.Common.ViewModels.UserEditVM
+
+@{
+    ViewData["Title"] = "Редактировать пользователя";
+}
+
+@using (Html.BeginForm())
+{
+    <fieldset>
+        <legend>Пользователь: @Model.User.Id</legend>
+ 
+        @Html.HiddenFor(model => model.User.UserName)
+ 
+        <p> Имя пользователя <br />
+            @Html.EditorFor(model => model.User.UserName)
+        </p>
+        
+        <p>Роль <br />
+            @Html.DropDownListFor(model => model.User.Role, ViewData["roles"] as SelectList)
+        </p>
+        <p>
+            <input type="submit" value="Сохранить" />
+        </p>
+    </fieldset>
+}
+<div>
+    @Html.ActionLink("Вернуться к списку пользователей", "Index")
+</div>

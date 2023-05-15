@@ -3,7 +3,7 @@ using Mag.Common.Models;
 
 namespace Mag.Common.Interfaces;
 
-public interface IUserService<T> where T : class
+public interface IAccountService<T> where T : class
 {
     public Task<Response<T>> AddUser(UserRegisterDto model);
     public Task<Response<T>> LoginUser(UserLoginDto model);

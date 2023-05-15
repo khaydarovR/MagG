@@ -1,137 +1,88 @@
-﻿using System.Security.Claims;
+using System.Security.Claims;
 using Mag.BL.Utils;
 using Mag.Common;
-using Mag.Common.Interfaces;
 using Mag.Common.Models;
+using Mag.Common.ViewModels;
 using Mag.DAL;
 using Mag.DAL.Entities;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Mvc.Routing;
 
 namespace Mag.BL;
 
-public class UserService: IUserService<AppUser>
+public class UserService
 {
     private readonly UserManager<AppUser> _userManager;
     private readonly AppDbContext _context;
-    private readonly SignInManager<AppUser> _signInManager;
 
     public UserService(
         UserManager<AppUser> userManager, 
         AppDbContext context, 
-        SignInManager<AppUser> signInManager,
-        EmailService emailService)
+        SignInManager<AppUser> signInManager)
     {
         _userManager = userManager;
         _context = context;
-        _signInManager = signInManager;
     }
 
 
-    public async Task<Response<AppUser>> AddUser(UserRegisterDto model)
+    public async Task<Response<UserVM>> GetAllUsers()
     {
-        var newUser = await MapToAppUser(model);
+        var dbUsers = _userManager.Users.ToList();
 
-        var createUser = await _userManager.CreateAsync(newUser, model.Password);
-        
-        if (createUser.Succeeded)
-        {
-            var dbUser = await _userManager.FindByEmailAsync(newUser.Email!);
-            var addClaims = await _userManager
-                .AddClaimsAsync(dbUser!, CreateDefaultClaims.Get(dbUser.Email, dbUser.UserName));
-            if (addClaims.Succeeded)
-            {
-                await _signInManager.SignInAsync(newUser, true);
-                return new Response<AppUser>(dbUser!);
-            }
-        }
+         var users = await MapToUserVM(dbUsers);
 
-        var response = new Response<AppUser>(false);
-        foreach (var error in createUser.Errors)
-        {
-            response.Errors.Add(error.Description);
-        }
-        return response;
+         return new Response<UserVM>(users);
     }
 
-    public async Task<Response<AppUser>> LoginUser(UserLoginDto model)
+   
+
+    public async Task<Response<UserEditVM>> GetUserForEdit(string guid)
     {
-        var result = await _signInManager.PasswordSignInAsync
-            (model.UserName, model.Password, model.RememberMe, false);
-        var userDb = await _userManager.FindByNameAsync(model.UserName);
-        if (result.Succeeded && userDb is not null)
+        var dbUser = await _userManager.Users.SingleAsync(u => u.Id == Guid.Parse(guid));
+        var allRoles = await _context.UserClaims
+            .Where(c => c.ClaimType == ClaimTypes.Role)
+            .Select(t => t.ClaimValue)
+            .ToListAsync();
+        allRoles.AddRange(DefaultRoles.RolesString);
+        allRoles = allRoles.Distinct().ToList();
+        var user = await MapToUserView(dbUser);
+
+        var userView = new UserEditVM()
         {
-            return new Response<AppUser>(userDb);
-        }
-
-        return new Response<AppUser>("Ошибка авторизации");
-    }
-
-    public async Task<Response<AppUser>> GetUserDetail(ClaimsPrincipal claimsPrincipal)
-    {
-        var result = await _userManager.GetUserAsync(claimsPrincipal);
-        
-        if (result is not null)
-        {
-            return new Response<AppUser>(result);
-        }
-
-        await _signInManager.SignOutAsync();
-        return new Response<AppUser>("Ошибка в куках, войдите заного", false);
-    }
-    
-    
-    public async Task<Response<AppUser>> ExitFromAccount()
-    {
-        await _signInManager.SignOutAsync();
-        return new Response<AppUser>(true);
-    }
-
-    public async Task<Response<AppUser>> Edit(UserEditDto userEditDto, ClaimsPrincipal claimsPrincipal)
-    {
-        var userDb = await _userManager.GetUserAsync(claimsPrincipal);
-
-        if (userDb is null)
-        {
-            return new Response<AppUser>("Пользователь не найден");
-        }
-        var userName = await _userManager.SetUserNameAsync(userDb, userEditDto.UserName);
-        var password = await _userManager.ChangePasswordAsync(
-            userDb, userEditDto.PasswordOld, userEditDto.PasswordNew);
-        
-
-        if (userName.Succeeded && password.Succeeded)
-        {
-            return new Response<AppUser>(true);
-        }
-        
-        var response = new Response<AppUser>(false);
-        foreach (var error in userName.Errors)
-        {
-            response.Errors.Add(error.Description);
-        }
-        foreach (var error in password.Errors)
-        {
-            response.Errors.Add(error.Description);
-        }
-        return response;
-    }
-
-
-    private async Task<AppUser> MapToAppUser(UserRegisterDto model)
-    {
-        var newUser = new AppUser()
-        {
-            Email = model.Email,
-            PhoneNumber = model.Phone,
-            UserState = StateEnum.Active,
-            CreatedDate = DateTime.Today,
-            EmailConfirmed = false,
-            UserName = model.Email,
-            SecurityStamp = DateTime.Now.ToLongTimeString()
+            Roles = allRoles,
+            User = user
         };
-        return newUser ;
+
+        return new Response<UserEditVM>(userView);
+
+    }
+    
+    
+    private async Task<UserVM> MapToUserVM(List<AppUser> dbUsers)
+    {
+        UserVM userVM = new UserVM();
+        foreach (var dbUser in dbUsers)
+        {
+            var userView = await MapToUserView(dbUser);
+
+            userVM.Users.Add(userView);
+        }
+        return userVM;
+    }
+
+    private async Task<User> MapToUserView(AppUser dbUser)
+    {
+        var userView = new User()
+        {
+            CreatedDate = dbUser.CreatedDate.ToShortDateString(),
+            Email = dbUser.Email,
+            Id = dbUser.Id.ToString(),
+            PhoneNumber = dbUser.PhoneNumber,
+            UserName = dbUser.UserName,
+            UserState = dbUser.UserState.ToString()
+        };
+        var claims = await _userManager.GetClaimsAsync(dbUser);
+        userView.Role = claims.Single(c => c.Type == ClaimTypes.Role).Value;
+        return userView;
     }
 }

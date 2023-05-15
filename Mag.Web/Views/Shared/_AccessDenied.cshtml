@@ -1,16 +1,10 @@
 ﻿@using Microsoft.EntityFrameworkCore
-@model List<string>;
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @addTagHelper *, AuthoringTagHelpers
 
 @{
-    ViewData["Title"] = "Вход";
+    ViewData["Title"] = "Ошибка";
 }
 
 <h1 class="text-danger">Не достаточно прав</h1>
-
-@foreach (var er in @Model)
-{
-    <p>@er</p>
-}
 

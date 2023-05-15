@@ -8,8 +8,11 @@ public static class AddServices
 {
     public static IServiceCollection AddDependencyServices(this IServiceCollection services) 
     {
-        services.AddScoped<IUserService<AppUser>, UserService>();
-        services.AddScoped<EmailService>();
+        services.AddScoped<IAccountService<AppUser>, AccountService>();
+        services.AddScoped<UserService>();
+        
+        
+        //services.AddScoped<EmailService>();
         return services;
     }
 }

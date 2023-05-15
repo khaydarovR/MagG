@@ -1,4 +1,5 @@
 ﻿@using System.Security.Claims
+@using Mag.Common
 @model Mag.DAL.Entities.AppUser;
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @addTagHelper *, AuthoringTagHelpers
@@ -9,7 +10,7 @@
 
 <section class="" style="background-color: #f4f5f7;">
   <div class="container py-5">
-    <div class="row d-flex justify-content-start align-items-start">
+    <div class="row d-flex justify-content-center align-items-center">
       <div class="col col-lg-6 mb-4 mb-lg-0">
         <div class="card mb-3 text-dark" style="border-radius: .5rem;">
           <div class="row g-0">
@@ -50,17 +51,23 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="col col-lg-6 mb-4 mb-lg-0">
-        <a type="button" class="pt-4 text-black text-center btn btn-outline-info m-1 w-25" style="color: black; height: 150px">
-          Покупатели1
-        </a>
-        <a type="button" class="pt-4 text-black text-center btn btn-outline-info m-1 w-25" style="color: black; height: 150px">
-          Покупатели2
-        </a>
-        <a type="button" class="pt-4 text-black text-center btn btn-outline-info m-1 w-25" style="color: black; height: 150px">
-          Покупатели3
-        </a>
+        @if (User.FindFirst(ClaimTypes.Role).Value == DefaultRoles.rootConst
+                     || User.FindFirst(ClaimTypes.Role).Value == DefaultRoles.adminConst)
+                {
+                  <h6>Админ панель</h6>
+                  <hr/>
+                  <div class=" align-content-center align-self-center">
+                    <a asp-controller="User" asp-action="Index"  type="button" class="pt-4 text-black text-center btn btn-outline-info m-1 w-25" style="color: black; height: 150px">
+                      Покупатели
+                    </a>
+                    <a type="button" class="pt-4 text-black text-center btn btn-outline-info m-1 w-25" style="color: black; height: 150px">
+                      Категории
+                    </a>
+                    <a type="button" class="pt-4 text-black text-center btn btn-outline-info m-1 w-25" style="color: black; height: 150px">
+                      Товары
+                    </a>
+                  </div>
+                }
       </div>
     </div>
   </div>
