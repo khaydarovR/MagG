@@ -14,6 +14,7 @@ public class UserService
 {
     private readonly UserManager<AppUser> _userManager;
     private readonly AppDbContext _context;
+    private readonly SignInManager<AppUser> _signInManager;
 
     public UserService(
         UserManager<AppUser> userManager, 
@@ -22,6 +23,7 @@ public class UserService
     {
         _userManager = userManager;
         _context = context;
+        _signInManager = signInManager;
     }
 
 
@@ -84,5 +86,27 @@ public class UserService
         var claims = await _userManager.GetClaimsAsync(dbUser);
         userView.Role = claims.Single(c => c.Type == ClaimTypes.Role).Value;
         return userView;
+    }
+
+    public async Task<Response<UserEditVM>> SaveChange(UserEditVM model)
+    {
+        var dbUser = await _userManager.FindByIdAsync(model.User.Id);
+        var resultSetName = await _userManager.SetUserNameAsync(dbUser, model.User.UserName);
+
+        var identityUserClaim = await _context.UserClaims
+            .Where(t => t.ClaimType == ClaimTypes.Role)
+            .SingleAsync(c => c.UserId == Guid.Parse(model.User.Id));
+
+        var oldClaim = new Claim(ClaimTypes.Role, identityUserClaim.ClaimValue);
+        var newClaim = new Claim(ClaimTypes.Role, model.User.Role);
+        var resultSetRole = await _userManager.ReplaceClaimAsync(dbUser, oldClaim, newClaim);
+
+        if (resultSetRole.Succeeded && resultSetName.Succeeded)
+        {
+            //TODO: Обновить claims у пользователя при первом запросе(Detail?)
+            return new Response<UserEditVM>(true);
+        }
+
+        return new Response<UserEditVM>("Ошибка при сохранении");
     }
 }

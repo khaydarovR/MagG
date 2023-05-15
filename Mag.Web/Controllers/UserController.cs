@@ -1,4 +1,5 @@
 using Mag.BL;
+using Mag.Common.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -30,4 +31,26 @@ public class UserController: Controller
         ViewData["roles"] = roles;
         return View(response.ResponseModel);
     }
+    
+    [HttpPost]
+    public async Task<ActionResult> Edit(UserEditVM model)
+    {
+        if (!ModelState.IsValid)
+        {
+            return View(model);
+        }
+    
+        var response = await _userService.SaveChange(model);
+        if (response.IsSuccessful)
+        {
+            return RedirectToAction("Index");
+        }
+
+        foreach (var e in response.Errors)
+        {
+            ModelState.AddModelError("", e);
+        }
+        return View(model);
+    }
+    
 }
