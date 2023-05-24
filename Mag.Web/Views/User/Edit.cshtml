@@ -3,29 +3,41 @@
 @using Microsoft.AspNetCore.Identity
 @model Mag.Common.ViewModels.UserEditVM
 
+
 @{
     ViewData["Title"] = "Редактировать пользователя";
 }
 
-@using (Html.BeginForm())
-{
-    <fieldset>
-        <legend>Пользователь: @Model.User.Id</legend>
- 
-        @Html.HiddenFor(model => model.User.UserName)
- 
-        <p> Имя пользователя <br />
-            @Html.EditorFor(model => model.User.UserName)
-        </p>
-        
-        <p>Роль <br />
-            @Html.DropDownListFor(model => model.SelectedRole,  as SelectList)
-        </p>
-        <p>
-            <input type="submit" value="Сохранить" />
-        </p>
-    </fieldset>
-}
+<form method="post" class="mx-1 my-3" asp-antiforgery="true" asp-action="Edit">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    @Html.HiddenFor(m => m.UserId)
+    <div class="d-flex flex-row align-items-center mb-4">
+        <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+        <div class="form-outline flex-fill mb-0">
+            <span class="text-danger" asp-validation-for="UserName"></span>
+            <input id="form3Example1q" class="form-control" asp-for="UserName" />
+            <label class="form-label" asp-for="UserName"></label>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <select asp-for="SelectedRole" class="form-select" aria-label="Default select example">
+            @foreach (string item in Model.Roles)
+            {
+                <option value="@item">@item</option>
+            }
+        </select>
+    </div>
+
+    <div class="d-flex justify-content-center">
+        <button type="submit" class="btn btn-primary btn-lg"
+                asp-action="Edit">
+            Применить изминения
+        </button>
+    </div>
+
+</form>
 <div>
     @Html.ActionLink("Вернуться к списку пользователей", "Index")
 </div>

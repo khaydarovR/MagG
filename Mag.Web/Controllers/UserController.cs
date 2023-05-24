@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.Differencing;
+using System;
 
 namespace Mag.Web.Controllers;
 
@@ -26,20 +27,12 @@ public class UserController: Controller
     public async Task<ActionResult> Edit(string guid)
     {
         var response = await _userService.GetUserForEdit(guid);
-        SelectList roles =
-            new SelectList(response.ResponseModel.Roles, response.ResponseModel.User.Role);
-        ViewData["roles"] = roles;
         return View(response.ResponseModel);
     }
     
     [HttpPost]
     public async Task<ActionResult> Edit(UserEditVM model)
     {
-        if (!ModelState.IsValid)
-        {
-            return View(model);
-        }
-    
         var response = await _userService.SaveChange(model);
         if (response.IsSuccessful)
         {
@@ -50,7 +43,13 @@ public class UserController: Controller
         {
             ModelState.AddModelError("", e);
         }
+
         return View(model);
     }
-    
+
+    public IActionResult SelectedListPartial()
+    {
+        return PartialView();
+    }
+
 }

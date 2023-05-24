@@ -52,7 +52,8 @@ public class UserService
         var userView = new UserEditVM()
         {
             Roles = allRoles,
-            User = user
+            UserName = user.UserName,
+            UserId = user.Id
         };
 
         return new Response<UserEditVM>(userView);
@@ -90,15 +91,15 @@ public class UserService
 
     public async Task<Response<UserEditVM>> SaveChange(UserEditVM model)
     {
-        var dbUser = await _userManager.FindByIdAsync(model.User.Id);
-        var resultSetName = await _userManager.SetUserNameAsync(dbUser, model.User.UserName);
+        var dbUser = await _userManager.FindByIdAsync(model.UserId);
+        var resultSetName = await _userManager.SetUserNameAsync(dbUser, model.UserName);
 
         var identityUserClaim = await _context.UserClaims
             .Where(t => t.ClaimType == ClaimTypes.Role)
-            .SingleAsync(c => c.UserId == Guid.Parse(model.User.Id));
+            .SingleAsync(c => c.UserId == Guid.Parse(model.UserId));
 
         var oldClaim = new Claim(ClaimTypes.Role, identityUserClaim.ClaimValue);
-        var newClaim = new Claim(ClaimTypes.Role, model.User.Role);
+        var newClaim = new Claim(ClaimTypes.Role, model.SelectedRole);
         var resultSetRole = await _userManager.ReplaceClaimAsync(dbUser, oldClaim, newClaim);
 
         if (resultSetRole.Succeeded && resultSetName.Succeeded)
