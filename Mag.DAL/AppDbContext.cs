@@ -14,6 +14,10 @@ public class AppDbContext: IdentityDbContext<AppUser, IdentityRole<Guid>, Guid,
                                             IdentityUserToken<Guid>>
 {
     public DbSet<AppUser> AppUser { get; set; }
+    public DbSet<Stock> Stocks { get; set; }
+    public DbSet<NomType> NomTypes { get; set; }
+    public DbSet<Nom> Noms { get; set; }
+    public DbSet<Order> Orders { get; set; }
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
         

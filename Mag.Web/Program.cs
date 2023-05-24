@@ -1,13 +1,6 @@
 using System.Security.Claims;
-using Mag.BL;
 using Mag.BL.Extensions;
 using Mag.Common;
-using Mag.Common.Interfaces;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Mag.DAL;
-using Mag.DAL.Entities;
 using static Mag.BL.Extensions.DbInitExtensions;
 
 var builder = WebApplication.CreateBuilder(args);

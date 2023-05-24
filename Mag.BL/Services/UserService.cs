@@ -1,3 +1,4 @@
+using System;
 using System.Security.Claims;
 using Mag.BL.Utils;
 using Mag.Common;
@@ -109,5 +110,18 @@ public class UserService
         }
 
         return new Response<UserEditVM>("Ошибка при сохранении");
+    }
+
+    public async Task<Response<string>> DeleteUser(string guid)
+    {
+        var dbUser = await _userManager.Users.SingleAsync(u => u.Id == Guid.Parse(guid));
+        var res = await _userManager.DeleteAsync(dbUser);
+
+        if (res.Succeeded)
+        {
+            return new Response<string>(true);
+        }
+
+        return new Response<string>("Ошибка при удалении: " + res.Errors.ElementAt(0), false);
     }
 }

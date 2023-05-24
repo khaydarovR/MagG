@@ -47,9 +47,20 @@ public class UserController: Controller
         return View(model);
     }
 
-    public IActionResult SelectedListPartial()
+    public async Task<ActionResult> Delete(string guid)
     {
-        return PartialView();
+        var response = await _userService.DeleteUser(guid);
+        if (response.IsSuccessful)
+        {
+            return RedirectToAction("Index");
+        }
+
+        foreach (var e in response.Errors)
+        {
+            ModelState.AddModelError("", e);
+        }
+
+        return View();
     }
 
 }
