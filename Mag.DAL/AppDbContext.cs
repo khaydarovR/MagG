@@ -22,7 +22,16 @@ public class AppDbContext: IdentityDbContext<AppUser, IdentityRole<Guid>, Guid,
     {
         
     }
-    
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        if (!optionsBuilder.IsConfigured)
+        {
+            optionsBuilder.UseMySql(
+                    serverVersion: new MySqlServerVersion("8.0.32"),
+                    connectionString: "Server=localhost; Port=3306; Database=mag; Uid=root; Pwd=root;"
+                );
+        }
+    }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);

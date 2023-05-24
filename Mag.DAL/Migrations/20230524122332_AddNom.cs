@@ -12,7 +12,7 @@ namespace Mag.DAL.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
+            migrationBuilder.СоздатьTable(
                 name: "NomTypes",
                 columns: table => new
                 {
@@ -27,7 +27,7 @@ namespace Mag.DAL.Migrations
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
-            migrationBuilder.CreateTable(
+            migrationBuilder.СоздатьTable(
                 name: "Stocks",
                 columns: table => new
                 {
@@ -46,7 +46,7 @@ namespace Mag.DAL.Migrations
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
-            migrationBuilder.CreateTable(
+            migrationBuilder.СоздатьTable(
                 name: "Noms",
                 columns: table => new
                 {
@@ -79,7 +79,7 @@ namespace Mag.DAL.Migrations
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
-            migrationBuilder.CreateTable(
+            migrationBuilder.СоздатьTable(
                 name: "Orders",
                 columns: table => new
                 {
@@ -108,22 +108,22 @@ namespace Mag.DAL.Migrations
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
-            migrationBuilder.CreateIndex(
+            migrationBuilder.СоздатьIndex(
                 name: "IX_Noms_NTypeId",
                 table: "Noms",
                 column: "NTypeId");
 
-            migrationBuilder.CreateIndex(
+            migrationBuilder.СоздатьIndex(
                 name: "IX_Noms_StockId",
                 table: "Noms",
                 column: "StockId");
 
-            migrationBuilder.CreateIndex(
+            migrationBuilder.СоздатьIndex(
                 name: "IX_Orders_AppUserId",
                 table: "Orders",
                 column: "AppUserId");
 
-            migrationBuilder.CreateIndex(
+            migrationBuilder.СоздатьIndex(
                 name: "IX_Orders_NomId",
                 table: "Orders",
                 column: "NomId");

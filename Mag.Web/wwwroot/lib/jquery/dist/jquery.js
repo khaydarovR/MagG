@@ -78,7 +78,7 @@ var isFunction = function isFunction( obj ) {
 
       // Support: Chrome <=57, Firefox <=52
       // In some browsers, typeof returns "function" for HTML <object> elements
-      // (i.e., `typeof document.createElement( "object" ) === "function"`).
+      // (i.e., `typeof document.—ÓÁ‰‡Ú¸Element( "object" ) === "function"`).
       // We don't want to classify *any* DOM node as a function.
       return typeof obj === "function" && typeof obj.nodeType !== "number";
   };
@@ -104,7 +104,7 @@ var document = window.document;
 		doc = doc || document;
 
 		var i, val,
-			script = doc.createElement( "script" );
+			script = doc.—ÓÁ‰‡Ú¸Element( "script" );
 
 		script.text = code;
 		if ( node ) {
@@ -141,7 +141,7 @@ function toType( obj ) {
 		typeof obj;
 }
 /* global Symbol */
-// Defining this global in .eslintrc.json would create a danger of using the global
+// Defining this global in .eslintrc.json would —ÓÁ‰‡Ú¸ a danger of using the global
 // unguarded in another place, it seems safer to define global only for this module
 
 
@@ -347,7 +347,7 @@ jQuery.extend( {
 
 		proto = getProto( obj );
 
-		// Objects with no prototype (e.g., `Object.create( null )`) are plain
+		// Objects with no prototype (e.g., `Object.—ÓÁ‰‡Ú¸( null )`) are plain
 		if ( !proto ) {
 			return true;
 		}
@@ -555,10 +555,10 @@ var i,
 	preferredDoc = window.document,
 	dirruns = 0,
 	done = 0,
-	classCache = createCache(),
-	tokenCache = createCache(),
-	compilerCache = createCache(),
-	nonnativeSelectorCache = createCache(),
+	classCache = —ÓÁ‰‡Ú¸Cache(),
+	tokenCache = —ÓÁ‰‡Ú¸Cache(),
+	compilerCache = —ÓÁ‰‡Ú¸Cache(),
+	nonnativeSelectorCache = —ÓÁ‰‡Ú¸Cache(),
 	sortOrder = function( a, b ) {
 		if ( a === b ) {
 			hasDuplicate = true;
@@ -895,12 +895,12 @@ function Sizzle( selector, context, results, seed ) {
 }
 
 /**
- * Create key-value caches of limited size
+ * —ÓÁ‰‡Ú¸ key-value caches of limited size
  * @returns {function(string, object)} Returns the Object data after storing it on itself with
  *	property name the (space-suffixed) string and (if the cache is larger than Expr.cacheLength)
  *	deleting the oldest entry
  */
-function createCache() {
+function —ÓÁ‰‡Ú¸Cache() {
 	var keys = [];
 
 	function cache( key, value ) {
@@ -927,10 +927,10 @@ function markFunction( fn ) {
 
 /**
  * Support testing using an element
- * @param {Function} fn Passed the created element and returns a boolean result
+ * @param {Function} fn Passed the —ÓÁ‰‡Ú¸d element and returns a boolean result
  */
 function assert( fn ) {
-	var el = document.createElement( "fieldset" );
+	var el = document.—ÓÁ‰‡Ú¸Element( "fieldset" );
 
 	try {
 		return !!fn( el );
@@ -994,7 +994,7 @@ function siblingCheck( a, b ) {
  * Returns a function to use in pseudos for input types
  * @param {String} type
  */
-function createInputPseudo( type ) {
+function —ÓÁ‰‡Ú¸InputPseudo( type ) {
 	return function( elem ) {
 		var name = elem.nodeName.toLowerCase();
 		return name === "input" && elem.type === type;
@@ -1005,7 +1005,7 @@ function createInputPseudo( type ) {
  * Returns a function to use in pseudos for buttons
  * @param {String} type
  */
-function createButtonPseudo( type ) {
+function —ÓÁ‰‡Ú¸ButtonPseudo( type ) {
 	return function( elem ) {
 		var name = elem.nodeName.toLowerCase();
 		return ( name === "input" || name === "button" ) && elem.type === type;
@@ -1016,7 +1016,7 @@ function createButtonPseudo( type ) {
  * Returns a function to use in pseudos for :enabled/:disabled
  * @param {Boolean} disabled true for :disabled; false for :enabled
  */
-function createDisabledPseudo( disabled ) {
+function —ÓÁ‰‡Ú¸DisabledPseudo( disabled ) {
 
 	// Known :disabled false positives: fieldset[disabled] > legend:nth-of-type(n+2) :can-disable
 	return function( elem ) {
@@ -1072,7 +1072,7 @@ function createDisabledPseudo( disabled ) {
  * Returns a function to use in pseudos for positionals
  * @param {Function} fn
  */
-function createPositionalPseudo( fn ) {
+function —ÓÁ‰‡Ú¸PositionalPseudo( fn ) {
 	return markFunction( function( argument ) {
 		argument = +argument;
 		return markFunction( function( seed, matches ) {
@@ -1165,7 +1165,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 	// Support: Safari 6.0 only
 	// Safari 6.0 supports :scope but it's an alias of :root there.
 	support.scope = assert( function( el ) {
-		docElem.appendChild( el ).appendChild( document.createElement( "div" ) );
+		docElem.appendChild( el ).appendChild( document.—ÓÁ‰‡Ú¸Element( "div" ) );
 		return typeof el.querySelectorAll !== "undefined" &&
 			!el.querySelectorAll( ":scope fieldset div" ).length;
 	} );
@@ -1186,7 +1186,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 
 	// Check if getElementsByTagName("*") returns only elements
 	support.getElementsByTagName = assert( function( el ) {
-		el.appendChild( document.createComment( "" ) );
+		el.appendChild( document.—ÓÁ‰‡Ú¸Comment( "" ) );
 		return !el.getElementsByTagName( "*" ).length;
 	} );
 
@@ -1353,7 +1353,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 			// Adding a temporary attribute to the document before the selection works
 			// around the issue.
 			// Interestingly, IE 10 & older don't seem to have the issue.
-			input = document.createElement( "input" );
+			input = document.—ÓÁ‰‡Ú¸Element( "input" );
 			input.setAttribute( "name", "" );
 			el.appendChild( input );
 			if ( !el.querySelectorAll( "[name='']" ).length ) {
@@ -1387,7 +1387,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 
 			// Support: Windows 8 Native Apps
 			// The type and name attributes are restricted during .innerHTML assignment
-			var input = document.createElement( "input" );
+			var input = document.—ÓÁ‰‡Ú¸Element( "input" );
 			input.setAttribute( "type", "hidden" );
 			el.appendChild( input ).setAttribute( "name", "D" );
 
@@ -1755,7 +1755,7 @@ Expr = Sizzle.selectors = {
 	// Can be adjusted by the user
 	cacheLength: 50,
 
-	createPseudo: markFunction,
+	—ÓÁ‰‡Ú¸Pseudo: markFunction,
 
 	match: matchExpr,
 
@@ -2053,8 +2053,8 @@ Expr = Sizzle.selectors = {
 				fn = Expr.pseudos[ pseudo ] || Expr.setFilters[ pseudo.toLowerCase() ] ||
 					Sizzle.error( "unsupported pseudo: " + pseudo );
 
-			// The user may use createPseudo to indicate that
-			// arguments are needed to create the filter function
+			// The user may use —ÓÁ‰‡Ú¸Pseudo to indicate that
+			// arguments are needed to —ÓÁ‰‡Ú¸ the filter function
 			// just as Sizzle does
 			if ( fn[ expando ] ) {
 				return fn( argument );
@@ -2176,8 +2176,8 @@ Expr = Sizzle.selectors = {
 		},
 
 		// Boolean properties
-		"enabled": createDisabledPseudo( false ),
-		"disabled": createDisabledPseudo( true ),
+		"enabled": —ÓÁ‰‡Ú¸DisabledPseudo( false ),
+		"disabled": —ÓÁ‰‡Ú¸DisabledPseudo( true ),
 
 		"checked": function( elem ) {
 
@@ -2245,19 +2245,19 @@ Expr = Sizzle.selectors = {
 		},
 
 		// Position-in-collection
-		"first": createPositionalPseudo( function() {
+		"first": —ÓÁ‰‡Ú¸PositionalPseudo( function() {
 			return [ 0 ];
 		} ),
 
-		"last": createPositionalPseudo( function( _matchIndexes, length ) {
+		"last": —ÓÁ‰‡Ú¸PositionalPseudo( function( _matchIndexes, length ) {
 			return [ length - 1 ];
 		} ),
 
-		"eq": createPositionalPseudo( function( _matchIndexes, length, argument ) {
+		"eq": —ÓÁ‰‡Ú¸PositionalPseudo( function( _matchIndexes, length, argument ) {
 			return [ argument < 0 ? argument + length : argument ];
 		} ),
 
-		"even": createPositionalPseudo( function( matchIndexes, length ) {
+		"even": —ÓÁ‰‡Ú¸PositionalPseudo( function( matchIndexes, length ) {
 			var i = 0;
 			for ( ; i < length; i += 2 ) {
 				matchIndexes.push( i );
@@ -2265,7 +2265,7 @@ Expr = Sizzle.selectors = {
 			return matchIndexes;
 		} ),
 
-		"odd": createPositionalPseudo( function( matchIndexes, length ) {
+		"odd": —ÓÁ‰‡Ú¸PositionalPseudo( function( matchIndexes, length ) {
 			var i = 1;
 			for ( ; i < length; i += 2 ) {
 				matchIndexes.push( i );
@@ -2273,7 +2273,7 @@ Expr = Sizzle.selectors = {
 			return matchIndexes;
 		} ),
 
-		"lt": createPositionalPseudo( function( matchIndexes, length, argument ) {
+		"lt": —ÓÁ‰‡Ú¸PositionalPseudo( function( matchIndexes, length, argument ) {
 			var i = argument < 0 ?
 				argument + length :
 				argument > length ?
@@ -2285,7 +2285,7 @@ Expr = Sizzle.selectors = {
 			return matchIndexes;
 		} ),
 
-		"gt": createPositionalPseudo( function( matchIndexes, length, argument ) {
+		"gt": —ÓÁ‰‡Ú¸PositionalPseudo( function( matchIndexes, length, argument ) {
 			var i = argument < 0 ? argument + length : argument;
 			for ( ; ++i < length; ) {
 				matchIndexes.push( i );
@@ -2299,10 +2299,10 @@ Expr.pseudos[ "nth" ] = Expr.pseudos[ "eq" ];
 
 // Add button/input type pseudos
 for ( i in { radio: true, checkbox: true, file: true, password: true, image: true } ) {
-	Expr.pseudos[ i ] = createInputPseudo( i );
+	Expr.pseudos[ i ] = —ÓÁ‰‡Ú¸InputPseudo( i );
 }
 for ( i in { submit: true, reset: true } ) {
-	Expr.pseudos[ i ] = createButtonPseudo( i );
+	Expr.pseudos[ i ] = —ÓÁ‰‡Ú¸ButtonPseudo( i );
 }
 
 // Easy API for creating new setFilters
@@ -2922,7 +2922,7 @@ setDocument();
 support.sortDetached = assert( function( el ) {
 
 	// Should return 1, but returns 4 (following)
-	return el.compareDocumentPosition( document.createElement( "fieldset" ) ) & 1;
+	return el.compareDocumentPosition( document.—ÓÁ‰‡Ú¸Element( "fieldset" ) ) & 1;
 } );
 
 // Support: IE<8
@@ -3420,7 +3420,7 @@ var rnothtmlwhite = ( /[^\x20\t\r\n\f]+/g );
 
 
 // Convert String-formatted options into Object-formatted ones
-function createOptions( options ) {
+function —ÓÁ‰‡Ú¸Options( options ) {
 	var object = {};
 	jQuery.each( options.match( rnothtmlwhite ) || [], function( _, flag ) {
 		object[ flag ] = true;
@@ -3429,7 +3429,7 @@ function createOptions( options ) {
 }
 
 /*
- * Create a callback list using the following parameters:
+ * —ÓÁ‰‡Ú¸ a callback list using the following parameters:
  *
  *	options: an optional list of space-separated options that will change how
  *			the callback list behaves or a more traditional option object
@@ -3455,7 +3455,7 @@ jQuery.Callbacks = function( options ) {
 	// Convert options from String-formatted to Object-formatted if needed
 	// (we check in cache first)
 	options = typeof options === "string" ?
-		createOptions( options ) :
+		—ÓÁ‰‡Ú¸Options( options ) :
 		jQuery.extend( {}, options );
 
 	var // Flag to know if list is currently firing
@@ -4242,7 +4242,7 @@ Data.prototype = {
 		// Check if the owner object already has a cache
 		var value = owner[ this.expando ];
 
-		// If not, create one
+		// If not, —ÓÁ‰‡Ú¸ one
 		if ( !value ) {
 			value = {};
 
@@ -4347,7 +4347,7 @@ Data.prototype = {
 				key = camelCase( key );
 
 				// If a key with the spaces exists, use it.
-				// Otherwise, create an array by matching non-whitespace
+				// Otherwise, —ÓÁ‰‡Ú¸ an array by matching non-whitespace
 				key = key in cache ?
 					[ key ] :
 					( key.match( rnothtmlwhite ) || [] );
@@ -4813,7 +4813,7 @@ function getDefaultDisplay( elem ) {
 		return display;
 	}
 
-	temp = doc.body.appendChild( doc.createElement( nodeName ) );
+	temp = doc.body.appendChild( doc.—ÓÁ‰‡Ú¸Element( nodeName ) );
 	display = jQuery.css( temp, "display" );
 
 	temp.parentNode.removeChild( temp );
@@ -4904,9 +4904,9 @@ var rscriptType = ( /^$|^module$|\/(?:java|ecma)script/i );
 
 
 ( function() {
-	var fragment = document.createDocumentFragment(),
-		div = fragment.appendChild( document.createElement( "div" ) ),
-		input = document.createElement( "input" );
+	var fragment = document.—ÓÁ‰‡Ú¸DocumentFragment(),
+		div = fragment.appendChild( document.—ÓÁ‰‡Ú¸Element( "div" ) ),
+		input = document.—ÓÁ‰‡Ú¸Element( "input" );
 
 	// Support: Android 4.0 - 4.3 only
 	// Check state lost if the name is set (#11217)
@@ -5001,7 +5001,7 @@ var rhtml = /<|&#?\w+;/;
 
 function buildFragment( elems, context, scripts, selection, ignored ) {
 	var elem, tmp, tag, wrap, attached, j,
-		fragment = context.createDocumentFragment(),
+		fragment = context.—ÓÁ‰‡Ú¸DocumentFragment(),
 		nodes = [],
 		i = 0,
 		l = elems.length;
@@ -5020,11 +5020,11 @@ function buildFragment( elems, context, scripts, selection, ignored ) {
 
 			// Convert non-html into a text node
 			} else if ( !rhtml.test( elem ) ) {
-				nodes.push( context.createTextNode( elem ) );
+				nodes.push( context.—ÓÁ‰‡Ú¸TextNode( elem ) );
 
 			// Convert html into DOM nodes
 			} else {
-				tmp = tmp || fragment.appendChild( context.createElement( "div" ) );
+				tmp = tmp || fragment.appendChild( context.—ÓÁ‰‡Ú¸Element( "div" ) );
 
 				// Deserialize a standard representation
 				tag = ( rtagName.exec( elem ) || [ "", "" ] )[ 1 ].toLowerCase();
@@ -5044,7 +5044,7 @@ function buildFragment( elems, context, scripts, selection, ignored ) {
 				// Remember the top-level container
 				tmp = fragment.firstChild;
 
-				// Ensure the created nodes are orphaned (#12392)
+				// Ensure the —ÓÁ‰‡Ú¸d nodes are orphaned (#12392)
 				tmp.textContent = "";
 			}
 		}
@@ -5222,7 +5222,7 @@ jQuery.event = {
 
 		// Init the element's event structure and main handler, if this is the first
 		if ( !( events = elemData.events ) ) {
-			events = elemData.events = Object.create( null );
+			events = elemData.events = Object.—ÓÁ‰‡Ú¸( null );
 		}
 		if ( !( eventHandle = elemData.handle ) ) {
 			eventHandle = elemData.handle = function( e ) {
@@ -5387,7 +5387,7 @@ jQuery.event = {
 			event = jQuery.event.fix( nativeEvent ),
 
 			handlers = (
-					dataPriv.get( this, "events" ) || Object.create( null )
+					dataPriv.get( this, "events" ) || Object.—ÓÁ‰‡Ú¸( null )
 				)[ event.type ] || [],
 			special = jQuery.event.special[ event.type ] || {};
 
@@ -5722,7 +5722,7 @@ jQuery.Event = function( src, props ) {
 			returnTrue :
 			returnFalse;
 
-		// Create target properties
+		// —ÓÁ‰‡Ú¸ target properties
 		// Support: Safari <=6 - 7 only
 		// Target should not be a text node (#504, #13143)
 		this.target = ( src.target && src.target.nodeType === 3 ) ?
@@ -5742,7 +5742,7 @@ jQuery.Event = function( src, props ) {
 		jQuery.extend( this, props );
 	}
 
-	// Create a timestamp if incoming event doesn't have one
+	// —ÓÁ‰‡Ú¸ a timestamp if incoming event doesn't have one
 	this.timeStamp = src && src.timeStamp || Date.now();
 
 	// Mark it as fixed
@@ -5878,7 +5878,7 @@ jQuery.each( { focus: "focusin", blur: "focusout" }, function( type, delegateTyp
 	};
 } );
 
-// Create mouseenter/leave events using mouseover/out and event-time checks
+// —ÓÁ‰‡Ú¸ mouseenter/leave events using mouseover/out and event-time checks
 // so that event delegation works in jQuery.
 // Do the same for pointerenter/pointerleave and pointerover/pointerout
 //
@@ -6410,7 +6410,7 @@ var rnumnonpx = new RegExp( "^(" + pnum + ")(?!px)[a-z%]+$", "i" );
 var getStyles = function( elem ) {
 
 		// Support: IE <=11 only, Firefox <=30 (#15098, #14150)
-		// IE throws on elements created in popups
+		// IE throws on elements —ÓÁ‰‡Ú¸d in popups
 		// FF meanwhile throws on frame elements through "defaultView.getComputedStyle"
 		var view = elem.ownerDocument.defaultView;
 
@@ -6500,8 +6500,8 @@ var rboxStyle = new RegExp( cssExpand.join( "|" ), "i" );
 
 	var pixelPositionVal, boxSizingReliableVal, scrollboxSizeVal, pixelBoxStylesVal,
 		reliableTrDimensionsVal, reliableMarginLeftVal,
-		container = document.createElement( "div" ),
-		div = document.createElement( "div" );
+		container = document.—ÓÁ‰‡Ú¸Element( "div" ),
+		div = document.—ÓÁ‰‡Ú¸Element( "div" );
 
 	// Finish early in limited (non-browser) environments
 	if ( !div.style ) {
@@ -6544,9 +6544,9 @@ var rboxStyle = new RegExp( cssExpand.join( "|" ), "i" );
 		reliableTrDimensions: function() {
 			var table, tr, trChild, trStyle;
 			if ( reliableTrDimensionsVal == null ) {
-				table = document.createElement( "table" );
-				tr = document.createElement( "tr" );
-				trChild = document.createElement( "div" );
+				table = document.—ÓÁ‰‡Ú¸Element( "table" );
+				tr = document.—ÓÁ‰‡Ú¸Element( "tr" );
+				trChild = document.—ÓÁ‰‡Ú¸Element( "div" );
 
 				table.style.cssText = "position:absolute;left:-11111px";
 				tr.style.height = "1px";
@@ -6642,7 +6642,7 @@ function addGetHookIf( conditionFn, hookFn ) {
 
 
 var cssPrefixes = [ "Webkit", "Moz", "ms" ],
-	emptyStyle = document.createElement( "div" ).style,
+	emptyStyle = document.—ÓÁ‰‡Ú¸Element( "div" ).style,
 	vendorProps = {};
 
 // Return a vendor-prefixed property or undefined
@@ -7278,15 +7278,15 @@ function schedule() {
 	}
 }
 
-// Animations created synchronously will run synchronously
-function createFxNow() {
+// Animations —ÓÁ‰‡Ú¸d synchronously will run synchronously
+function —ÓÁ‰‡Ú¸FxNow() {
 	window.setTimeout( function() {
 		fxNow = undefined;
 	} );
 	return ( fxNow = Date.now() );
 }
 
-// Generate parameters to create a standard animation
+// Generate parameters to —ÓÁ‰‡Ú¸ a standard animation
 function genFx( type, includeWidth ) {
 	var which,
 		i = 0,
@@ -7307,7 +7307,7 @@ function genFx( type, includeWidth ) {
 	return attrs;
 }
 
-function createTween( value, prop, animation ) {
+function —ÓÁ‰‡Ú¸Tween( value, prop, animation ) {
 	var tween,
 		collection = ( Animation.tweeners[ prop ] || [] ).concat( Animation.tweeners[ "*" ] ),
 		index = 0,
@@ -7482,7 +7482,7 @@ function defaultPrefilter( elem, props, opts ) {
 		}
 
 		// Per-property setup
-		propTween = createTween( hidden ? dataShow[ prop ] : 0, prop, anim );
+		propTween = —ÓÁ‰‡Ú¸Tween( hidden ? dataShow[ prop ] : 0, prop, anim );
 		if ( !( prop in dataShow ) ) {
 			dataShow[ prop ] = propTween.start;
 			if ( hidden ) {
@@ -7544,7 +7544,7 @@ function Animation( elem, properties, options ) {
 			if ( stopped ) {
 				return false;
 			}
-			var currentTime = fxNow || createFxNow(),
+			var currentTime = fxNow || —ÓÁ‰‡Ú¸FxNow(),
 				remaining = Math.max( 0, animation.startTime + animation.duration - currentTime ),
 
 				// Support: Android 2.3 only
@@ -7583,10 +7583,10 @@ function Animation( elem, properties, options ) {
 			}, options ),
 			originalProperties: properties,
 			originalOptions: options,
-			startTime: fxNow || createFxNow(),
+			startTime: fxNow || —ÓÁ‰‡Ú¸FxNow(),
 			duration: options.duration,
 			tweens: [],
-			createTween: function( prop, end ) {
+			—ÓÁ‰‡Ú¸Tween: function( prop, end ) {
 				var tween = jQuery.Tween( elem, animation.opts, prop, end,
 						animation.opts.specialEasing[ prop ] || animation.opts.easing );
 				animation.tweens.push( tween );
@@ -7631,7 +7631,7 @@ function Animation( elem, properties, options ) {
 		}
 	}
 
-	jQuery.map( props, createTween, animation );
+	jQuery.map( props, —ÓÁ‰‡Ú¸Tween, animation );
 
 	if ( isFunction( animation.opts.start ) ) {
 		animation.opts.start.call( elem, animation );
@@ -7659,7 +7659,7 @@ jQuery.Animation = jQuery.extend( Animation, {
 
 	tweeners: {
 		"*": [ function( prop, value ) {
-			var tween = this.createTween( prop, value );
+			var tween = this.—ÓÁ‰‡Ú¸Tween( prop, value );
 			adjustCSS( tween.elem, prop, rcssNum.exec( value ), tween );
 			return tween;
 		} ]
@@ -7952,9 +7952,9 @@ jQuery.fn.delay = function( time, type ) {
 
 
 ( function() {
-	var input = document.createElement( "input" ),
-		select = document.createElement( "select" ),
-		opt = select.appendChild( document.createElement( "option" ) );
+	var input = document.—ÓÁ‰‡Ú¸Element( "input" ),
+		select = document.—ÓÁ‰‡Ú¸Element( "select" ),
+		opt = select.appendChild( document.—ÓÁ‰‡Ú¸Element( "option" ) );
 
 	input.type = "checkbox";
 
@@ -7968,7 +7968,7 @@ jQuery.fn.delay = function( time, type ) {
 
 	// Support: IE <=11 only
 	// An input loses its value after becoming a radio
-	input = document.createElement( "input" );
+	input = document.—ÓÁ‰‡Ú¸Element( "input" );
 	input.value = "t";
 	input.type = "radio";
 	support.radioValue = input.value === "t";
@@ -8643,7 +8643,7 @@ jQuery.extend( jQuery.event, {
 
 		if ( type.indexOf( "." ) > -1 ) {
 
-			// Namespaced trigger; create a regexp to match event type in handle()
+			// Namespaced trigger; —ÓÁ‰‡Ú¸ a regexp to match event type in handle()
 			namespaces = type.split( "." );
 			type = namespaces.shift();
 			namespaces.sort();
@@ -8708,7 +8708,7 @@ jQuery.extend( jQuery.event, {
 
 			// jQuery handler
 			handle = (
-					dataPriv.get( cur, "events" ) || Object.create( null )
+					dataPriv.get( cur, "events" ) || Object.—ÓÁ‰‡Ú¸( null )
 				)[ event.type ] &&
 				dataPriv.get( cur, "handle" );
 			if ( handle ) {
@@ -9032,7 +9032,7 @@ var
 	allTypes = "*/".concat( "*" ),
 
 	// Anchor tag for parsing the document origin
-	originAnchor = document.createElement( "a" );
+	originAnchor = document.—ÓÁ‰‡Ú¸Element( "a" );
 	originAnchor.href = location.href;
 
 // Base "constructor" for jQuery.ajaxPrefilter and jQuery.ajaxTransport
@@ -9184,7 +9184,7 @@ function ajaxConvert( s, response, jqXHR, isSuccess ) {
 		// Work with a copy of dataTypes in case we need to modify it for conversion
 		dataTypes = s.dataTypes.slice();
 
-	// Create converters map with lowercased keys
+	// —ÓÁ‰‡Ú¸ converters map with lowercased keys
 	if ( dataTypes[ 1 ] ) {
 		for ( conv in s.converters ) {
 			converters[ conv.toLowerCase() ] = s.converters[ conv ];
@@ -9342,7 +9342,7 @@ jQuery.extend( {
 
 		// For options that shouldn't be deep extended:
 		// you can add your own custom options here if
-		// and when you create one that shouldn't be
+		// and when you —ÓÁ‰‡Ú¸ one that shouldn't be
 		// deep extended (see ajaxExtend)
 		flatOptions: {
 			url: true,
@@ -9350,7 +9350,7 @@ jQuery.extend( {
 		}
 	},
 
-	// Creates a full fledged settings object into target
+	// —ÓÁ‰‡Ú¸s a full fledged settings object into target
 	// with both ajaxSettings and settings fields.
 	// If target is omitted, writes into ajaxSettings.
 	ajaxSetup: function( target, settings ) {
@@ -9405,7 +9405,7 @@ jQuery.extend( {
 			// uncached part of the url
 			uncached,
 
-			// Create the final options object
+			// —ÓÁ‰‡Ú¸ the final options object
 			s = jQuery.ajaxSetup( {}, options ),
 
 			// Callbacks context
@@ -9522,7 +9522,7 @@ jQuery.extend( {
 
 		// A cross-domain request is in order when the origin doesn't match the current origin.
 		if ( s.crossDomain == null ) {
-			urlAnchor = document.createElement( "a" );
+			urlAnchor = document.—ÓÁ‰‡Ú¸Element( "a" );
 
 			// Support: IE <=8 - 11, Edge 12 - 15
 			// IE throws exception on accessing the href property if url is malformed,
@@ -10090,7 +10090,7 @@ jQuery.ajaxTransport( function( options ) {
 					};
 				}
 
-				// Create the abort callback
+				// —ÓÁ‰‡Ú¸ the abort callback
 				callback = callback( "abort" );
 
 				try {
@@ -10282,19 +10282,19 @@ jQuery.ajaxPrefilter( "json jsonp", function( s, originalSettings, jqXHR ) {
 
 
 // Support: Safari 8 only
-// In Safari 8 documents created via document.implementation.createHTMLDocument
+// In Safari 8 documents —ÓÁ‰‡Ú¸d via document.implementation.—ÓÁ‰‡Ú¸HTMLDocument
 // collapse sibling forms: the second one becomes a child of the first one.
 // Because of that, this security measure has to be disabled in Safari 8.
 // https://bugs.webkit.org/show_bug.cgi?id=137337
-support.createHTMLDocument = ( function() {
-	var body = document.implementation.createHTMLDocument( "" ).body;
+support.—ÓÁ‰‡Ú¸HTMLDocument = ( function() {
+	var body = document.implementation.—ÓÁ‰‡Ú¸HTMLDocument( "" ).body;
 	body.innerHTML = "<form></form><form></form>";
 	return body.childNodes.length === 2;
 } )();
 
 
 // Argument "data" should be string of html
-// context (optional): If specified, the fragment will be created in this context,
+// context (optional): If specified, the fragment will be —ÓÁ‰‡Ú¸d in this context,
 // defaults to document
 // keepScripts (optional): If true, will include scripts passed in the html string
 jQuery.parseHTML = function( data, context, keepScripts ) {
@@ -10312,13 +10312,13 @@ jQuery.parseHTML = function( data, context, keepScripts ) {
 
 		// Stop scripts or inline event handlers from being executed immediately
 		// by using document.implementation
-		if ( support.createHTMLDocument ) {
-			context = document.implementation.createHTMLDocument( "" );
+		if ( support.—ÓÁ‰‡Ú¸HTMLDocument ) {
+			context = document.implementation.—ÓÁ‰‡Ú¸HTMLDocument( "" );
 
-			// Set the base href for the created document
+			// Set the base href for the —ÓÁ‰‡Ú¸d document
 			// so any parsed elements with URLs
 			// are based on the document's URL (gh-2965)
-			base = context.createElement( "base" );
+			base = context.—ÓÁ‰‡Ú¸Element( "base" );
 			base.href = document.location.href;
 			context.head.appendChild( base );
 		} else {
@@ -10331,7 +10331,7 @@ jQuery.parseHTML = function( data, context, keepScripts ) {
 
 	// Single tag
 	if ( parsed ) {
-		return [ context.createElement( parsed[ 1 ] ) ];
+		return [ context.—ÓÁ‰‡Ú¸Element( parsed[ 1 ] ) ];
 	}
 
 	parsed = buildFragment( [ data ], context, scripts );
@@ -10584,7 +10584,7 @@ jQuery.fn.extend( {
 	}
 } );
 
-// Create scrollLeft and scrollTop methods
+// —ÓÁ‰‡Ú¸ scrollLeft and scrollTop methods
 jQuery.each( { scrollLeft: "pageXOffset", scrollTop: "pageYOffset" }, function( method, prop ) {
 	var top = "pageYOffset" === prop;
 
@@ -10638,7 +10638,7 @@ jQuery.each( [ "top", "left" ], function( _i, prop ) {
 } );
 
 
-// Create innerHeight, innerWidth, height, width, outerHeight and outerWidth methods
+// —ÓÁ‰‡Ú¸ innerHeight, innerWidth, height, width, outerHeight and outerWidth methods
 jQuery.each( { Height: "height", Width: "width" }, function( name, type ) {
 	jQuery.each( { padding: "inner" + name, content: type, "": "outer" + name },
 		function( defaultExtra, funcName ) {

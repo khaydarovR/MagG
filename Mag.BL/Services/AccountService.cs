@@ -28,13 +28,13 @@ public class AccountService: IAccountService<AppUser>
     {
         var newUser = await MapToAppUser(model);
 
-        var createUser = await _userManager.CreateAsync(newUser, model.Password);
+        var СоздатьUser = await _userManager.СоздатьAsync(newUser, model.Password);
         
-        if (createUser.Succeeded)
+        if (СоздатьUser.Succeeded)
         {
             var dbUser = await _userManager.FindByEmailAsync(newUser.Email!);
             var addClaims = await _userManager
-                .AddClaimsAsync(dbUser!, CreateDefaultClaims.Get(dbUser.Email, dbUser.UserName));
+                .AddClaimsAsync(dbUser!, СоздатьDefaultClaims.Get(dbUser.Email, dbUser.UserName));
             if (addClaims.Succeeded)
             {
                 await _signInManager.SignInAsync(newUser, true);
@@ -43,7 +43,7 @@ public class AccountService: IAccountService<AppUser>
         }
 
         var response = new Response<AppUser>(false);
-        foreach (var error in createUser.Errors)
+        foreach (var error in СоздатьUser.Errors)
         {
             response.Errors.Add(error.Description);
         }
@@ -121,7 +121,7 @@ public class AccountService: IAccountService<AppUser>
             Email = model.Email,
             PhoneNumber = model.Phone,
             UserState = StateEnum.Active,
-            CreatedDate = DateTime.Today,
+            СоздатьdDate = DateTime.Today,
             EmailConfirmed = false,
             UserName = model.Email,
             SecurityStamp = DateTime.Now.ToLongTimeString()

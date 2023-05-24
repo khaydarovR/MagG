@@ -28,7 +28,7 @@ public static class DbInitExtensions
         {
             foreach (var role in DefaultRoles.Roles)
             {
-                var result = await roleManager.CreateAsync(role);
+                var result = await roleManager.СоздатьAsync(role);
                 if (result.Succeeded)
                 {
                     Console.WriteLine("Роль по умолчанию добавлен: " + role.Name);
@@ -53,12 +53,12 @@ public static class DbInitExtensions
         var phone = configuration["ROOT_PHONE"] ?? "777";
         
         var root = new AppUser() { UserName = login, Email = email, PhoneNumber = phone};
-        var result = await userManager.CreateAsync(root, password);
+        var result = await userManager.СоздатьAsync(root, password);
         if (result.Succeeded)
         {
             var rootDb = await userManager.FindByNameAsync(root.UserName);
             var claimResult = await userManager.AddClaimsAsync
-                (rootDb!, CreateDefaultClaims.Get(rootDb.UserName, rootDb.Email, DefaultRoles.rootConst));
+                (rootDb!, СоздатьDefaultClaims.Get(rootDb.UserName, rootDb.Email, DefaultRoles.rootConst));
             if (claimResult.Succeeded)
             {
                 Console.WriteLine("root пользователь добавлен (пароль): " + password);

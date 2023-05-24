@@ -15,7 +15,7 @@ namespace Mag.DAL.Migrations
             migrationBuilder.AlterDatabase()
                 .Annotation("MySql:CharSet", "utf8mb4");
 
-            migrationBuilder.CreateTable(
+            migrationBuilder.СоздатьTable(
                 name: "AspNetRoles",
                 columns: table => new
                 {
@@ -33,12 +33,12 @@ namespace Mag.DAL.Migrations
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
-            migrationBuilder.CreateTable(
+            migrationBuilder.СоздатьTable(
                 name: "AspNetUsers",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    CreatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    СоздатьdDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     UserState = table.Column<int>(type: "int", nullable: false),
                     UserName = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -69,7 +69,7 @@ namespace Mag.DAL.Migrations
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
-            migrationBuilder.CreateTable(
+            migrationBuilder.СоздатьTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -93,7 +93,7 @@ namespace Mag.DAL.Migrations
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
-            migrationBuilder.CreateTable(
+            migrationBuilder.СоздатьTable(
                 name: "AspNetUserClaims",
                 columns: table => new
                 {
@@ -117,7 +117,7 @@ namespace Mag.DAL.Migrations
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
-            migrationBuilder.CreateTable(
+            migrationBuilder.СоздатьTable(
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
@@ -141,7 +141,7 @@ namespace Mag.DAL.Migrations
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
-            migrationBuilder.CreateTable(
+            migrationBuilder.СоздатьTable(
                 name: "AspNetUserRoles",
                 columns: table => new
                 {
@@ -166,7 +166,7 @@ namespace Mag.DAL.Migrations
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
-            migrationBuilder.CreateTable(
+            migrationBuilder.СоздатьTable(
                 name: "AspNetUserTokens",
                 columns: table => new
                 {
@@ -190,38 +190,38 @@ namespace Mag.DAL.Migrations
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
-            migrationBuilder.CreateIndex(
+            migrationBuilder.СоздатьIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
                 column: "RoleId");
 
-            migrationBuilder.CreateIndex(
+            migrationBuilder.СоздатьIndex(
                 name: "RoleNameIndex",
                 table: "AspNetRoles",
                 column: "NormalizedName",
                 unique: true);
 
-            migrationBuilder.CreateIndex(
+            migrationBuilder.СоздатьIndex(
                 name: "IX_AspNetUserClaims_UserId",
                 table: "AspNetUserClaims",
                 column: "UserId");
 
-            migrationBuilder.CreateIndex(
+            migrationBuilder.СоздатьIndex(
                 name: "IX_AspNetUserLogins_UserId",
                 table: "AspNetUserLogins",
                 column: "UserId");
 
-            migrationBuilder.CreateIndex(
+            migrationBuilder.СоздатьIndex(
                 name: "IX_AspNetUserRoles_RoleId",
                 table: "AspNetUserRoles",
                 column: "RoleId");
 
-            migrationBuilder.CreateIndex(
+            migrationBuilder.СоздатьIndex(
                 name: "EmailIndex",
                 table: "AspNetUsers",
                 column: "NormalizedEmail");
 
-            migrationBuilder.CreateIndex(
+            migrationBuilder.СоздатьIndex(
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",

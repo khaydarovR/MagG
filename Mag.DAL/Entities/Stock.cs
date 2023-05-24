@@ -12,10 +12,11 @@ namespace Mag.DAL.Entities
         public int Id { get; set; }
 
         [Required]
+        [Display(Name = "Название")]
         public string Title { get; set; }
-
+        [Display(Name = "Адрес")]
         public string? Address { get; set; }
-
+        [Display(Name = "Описание")]
         public string? Description { get; set; }
     }
 }

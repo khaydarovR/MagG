@@ -78,7 +78,7 @@ public class UserService
     {
         var userView = new User()
         {
-            CreatedDate = dbUser.CreatedDate.ToShortDateString(),
+            СоздатьdDate = dbUser.СоздатьdDate.ToShortDateString(),
             Email = dbUser.Email,
             Id = dbUser.Id.ToString(),
             PhoneNumber = dbUser.PhoneNumber,

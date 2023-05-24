@@ -11,7 +11,7 @@
 
   function _interopNamespace(e) {
     if (e && e.__esModule) return e;
-    var n = Object.create(null);
+    var n = Object.—ÓÁ‰‡Ú¸(null);
     if (e) {
       Object.keys(e).forEach(function (k) {
         if (k !== 'default') {
@@ -593,7 +593,7 @@
       }
 
       if (isNative) {
-        evt = document.createEvent('HTMLEvents');
+        evt = document.—ÓÁ‰‡Ú¸Event('HTMLEvents');
         evt.initEvent(typeEvent, bubbles, true);
       } else {
         evt = new CustomEvent(event, {
@@ -729,7 +729,7 @@
       return Data.get(getElement(element), this.DATA_KEY);
     }
 
-    static getOrCreateInstance(element, config = {}) {
+    static getOr—ÓÁ‰‡Ú¸Instance(element, config = {}) {
       return this.getInstance(element) || new this(element, typeof config === 'object' ? config : null);
     }
 
@@ -771,7 +771,7 @@
       }
 
       const target = getElementFromSelector(this) || this.closest(`.${name}`);
-      const instance = component.getOrCreateInstance(target); // Method argument is left, for Alert and only, as it doesn't implement the 'hide' method
+      const instance = component.getOr—ÓÁ‰‡Ú¸Instance(target); // Method argument is left, for Alert and only, as it doesn't implement the 'hide' method
 
       instance[method]();
     });
@@ -834,7 +834,7 @@
 
     static jQueryInterface(config) {
       return this.each(function () {
-        const data = Alert.getOrCreateInstance(this);
+        const data = Alert.getOr—ÓÁ‰‡Ú¸Instance(this);
 
         if (typeof config !== 'string') {
           return;
@@ -906,7 +906,7 @@
 
     static jQueryInterface(config) {
       return this.each(function () {
-        const data = Button.getOrCreateInstance(this);
+        const data = Button.getOr—ÓÁ‰‡Ú¸Instance(this);
 
         if (config === 'toggle') {
           data[config]();
@@ -925,7 +925,7 @@
   EventHandler.on(document, EVENT_CLICK_DATA_API$6, SELECTOR_DATA_TOGGLE$5, event => {
     event.preventDefault();
     const button = event.target.closest(SELECTOR_DATA_TOGGLE$5);
-    const data = Button.getOrCreateInstance(button);
+    const data = Button.getOr—ÓÁ‰‡Ú¸Instance(button);
     data.toggle();
   });
   /**
@@ -1543,7 +1543,7 @@
 
 
     static carouselInterface(element, config) {
-      const data = Carousel.getOrCreateInstance(element, config);
+      const data = Carousel.getOr—ÓÁ‰‡Ú¸Instance(element, config);
       let {
         _config
       } = data;
@@ -1751,7 +1751,7 @@
 
       actives.forEach(elemActive => {
         if (container !== elemActive) {
-          Collapse.getOrCreateInstance(elemActive, {
+          Collapse.getOr—ÓÁ‰‡Ú¸Instance(elemActive, {
             toggle: false
           }).hide();
         }
@@ -1901,7 +1901,7 @@
           _config.toggle = false;
         }
 
-        const data = Collapse.getOrCreateInstance(this, _config);
+        const data = Collapse.getOr—ÓÁ‰‡Ú¸Instance(this, _config);
 
         if (typeof config === 'string') {
           if (typeof data[config] === 'undefined') {
@@ -1930,7 +1930,7 @@
     const selector = getSelectorFromElement(this);
     const selectorElements = SelectorEngine.find(selector);
     selectorElements.forEach(element => {
-      Collapse.getOrCreateInstance(element, {
+      Collapse.getOr—ÓÁ‰‡Ú¸Instance(element, {
         toggle: false
       }).toggle();
     });
@@ -2058,7 +2058,7 @@
       if (this._inNavbar) {
         Manipulator.setDataAttribute(this._menu, 'popper', 'none');
       } else {
-        this._createPopper(parent);
+        this._—ÓÁ‰‡Ú¸Popper(parent);
       } // If this is a touch-enabled device we add extra
       // empty mouseover listeners to the body's immediate children;
       // only needed because of broken event delegation on iOS
@@ -2151,7 +2151,7 @@
       return config;
     }
 
-    _createPopper(parent) {
+    _—ÓÁ‰‡Ú¸Popper(parent) {
       if (typeof Popper__namespace === 'undefined') {
         throw new TypeError('Bootstrap\'s dropdowns require Popper (https://popper.js.org)');
       }
@@ -2169,7 +2169,7 @@
       const popperConfig = this._getPopperConfig();
 
       const isDisplayStatic = popperConfig.modifiers.find(modifier => modifier.name === 'applyStyles' && modifier.enabled === false);
-      this._popper = Popper__namespace.createPopper(referenceElement, this._menu, popperConfig);
+      this._popper = Popper__namespace.—ÓÁ‰‡Ú¸Popper(referenceElement, this._menu, popperConfig);
 
       if (isDisplayStatic) {
         Manipulator.setDataAttribute(this._menu, 'popper', 'static');
@@ -2271,7 +2271,7 @@
 
     static jQueryInterface(config) {
       return this.each(function () {
-        const data = Dropdown.getOrCreateInstance(this, config);
+        const data = Dropdown.getOr—ÓÁ‰‡Ú¸Instance(this, config);
 
         if (typeof config !== 'string') {
           return;
@@ -2359,7 +2359,7 @@
       }
 
       const getToggleButton = this.matches(SELECTOR_DATA_TOGGLE$3) ? this : SelectorEngine.prev(this, SELECTOR_DATA_TOGGLE$3)[0];
-      const instance = Dropdown.getOrCreateInstance(getToggleButton);
+      const instance = Dropdown.getOr—ÓÁ‰‡Ú¸Instance(getToggleButton);
 
       if (event.key === ESCAPE_KEY$2) {
         instance.hide();
@@ -2395,7 +2395,7 @@
   EventHandler.on(document, EVENT_KEYUP_DATA_API, Dropdown.clearMenus);
   EventHandler.on(document, EVENT_CLICK_DATA_API$3, SELECTOR_DATA_TOGGLE$3, function (event) {
     event.preventDefault();
-    Dropdown.getOrCreateInstance(this).toggle();
+    Dropdown.getOr—ÓÁ‰‡Ú¸Instance(this).toggle();
   });
   /**
    * ------------------------------------------------------------------------
@@ -2580,7 +2580,7 @@
 
     _getElement() {
       if (!this._element) {
-        const backdrop = document.createElement('div');
+        const backdrop = document.—ÓÁ‰‡Ú¸Element('div');
         backdrop.className = this._config.className;
 
         if (this._config.isAnimated) {
@@ -3104,7 +3104,7 @@
 
     static jQueryInterface(config, relatedTarget) {
       return this.each(function () {
-        const data = Modal.getOrCreateInstance(this, config);
+        const data = Modal.getOr—ÓÁ‰‡Ú¸Instance(this, config);
 
         if (typeof config !== 'string') {
           return;
@@ -3145,7 +3145,7 @@
         }
       });
     });
-    const data = Modal.getOrCreateInstance(target);
+    const data = Modal.getOr—ÓÁ‰‡Ú¸Instance(target);
     data.toggle(this);
   });
   enableDismissTrigger(Modal);
@@ -3355,7 +3355,7 @@
 
     static jQueryInterface(config) {
       return this.each(function () {
-        const data = Offcanvas.getOrCreateInstance(this, config);
+        const data = Offcanvas.getOr—ÓÁ‰‡Ú¸Instance(this, config);
 
         if (typeof config !== 'string') {
           return;
@@ -3401,10 +3401,10 @@
       Offcanvas.getInstance(allReadyOpen).hide();
     }
 
-    const data = Offcanvas.getOrCreateInstance(target);
+    const data = Offcanvas.getOr—ÓÁ‰‡Ú¸Instance(target);
     data.toggle(this);
   });
-  EventHandler.on(window, EVENT_LOAD_DATA_API$1, () => SelectorEngine.find(OPEN_SELECTOR).forEach(el => Offcanvas.getOrCreateInstance(el).show()));
+  EventHandler.on(window, EVENT_LOAD_DATA_API$1, () => SelectorEngine.find(OPEN_SELECTOR).forEach(el => Offcanvas.getOr—ÓÁ‰‡Ú¸Instance(el).show()));
   enableDismissTrigger(Offcanvas);
   /**
    * ------------------------------------------------------------------------
@@ -3502,9 +3502,9 @@
     }
 
     const domParser = new window.DOMParser();
-    const createdDocument = domParser.parseFromString(unsafeHtml, 'text/html');
+    const —ÓÁ‰‡Ú¸dDocument = domParser.parseFromString(unsafeHtml, 'text/html');
     const allowlistKeys = Object.keys(allowList);
-    const elements = [].concat(...createdDocument.body.querySelectorAll('*'));
+    const elements = [].concat(...—ÓÁ‰‡Ú¸dDocument.body.querySelectorAll('*'));
 
     for (let i = 0, len = elements.length; i < len; i++) {
       const el = elements[i];
@@ -3524,7 +3524,7 @@
       });
     }
 
-    return createdDocument.body.innerHTML;
+    return —ÓÁ‰‡Ú¸dDocument.body.innerHTML;
   }
 
   /**
@@ -3756,7 +3756,7 @@
       if (this._popper) {
         this._popper.update();
       } else {
-        this._popper = Popper__namespace.createPopper(this._element, tip, this._getPopperConfig(attachment));
+        this._popper = Popper__namespace.—ÓÁ‰‡Ú¸Popper(this._element, tip, this._getPopperConfig(attachment));
       }
 
       tip.classList.add(CLASS_NAME_SHOW$2);
@@ -3860,7 +3860,7 @@
         return this.tip;
       }
 
-      const element = document.createElement('div');
+      const element = document.—ÓÁ‰‡Ú¸Element('div');
       element.innerHTML = this._config.template;
       const tip = element.children[0];
       this.setContent(tip);
@@ -3936,7 +3936,7 @@
 
 
     _initializeOnDelegatedTarget(event, context) {
-      return context || this.constructor.getOrCreateInstance(event.delegateTarget, this._getDelegateConfig());
+      return context || this.constructor.getOr—ÓÁ‰‡Ú¸Instance(event.delegateTarget, this._getDelegateConfig());
     }
 
     _getOffset() {
@@ -4203,7 +4203,7 @@
 
     static jQueryInterface(config) {
       return this.each(function () {
-        const data = Tooltip.getOrCreateInstance(this, config);
+        const data = Tooltip.getOr—ÓÁ‰‡Ú¸Instance(this, config);
 
         if (typeof config === 'string') {
           if (typeof data[config] === 'undefined') {
@@ -4313,7 +4313,7 @@
 
     static jQueryInterface(config) {
       return this.each(function () {
-        const data = Popover.getOrCreateInstance(this, config);
+        const data = Popover.getOr—ÓÁ‰‡Ú¸Instance(this, config);
 
         if (typeof config === 'string') {
           if (typeof data[config] === 'undefined') {
@@ -4537,7 +4537,7 @@
 
     static jQueryInterface(config) {
       return this.each(function () {
-        const data = ScrollSpy.getOrCreateInstance(this, config);
+        const data = ScrollSpy.getOr—ÓÁ‰‡Ú¸Instance(this, config);
 
         if (typeof config !== 'string') {
           return;
@@ -4728,7 +4728,7 @@
 
     static jQueryInterface(config) {
       return this.each(function () {
-        const data = Tab.getOrCreateInstance(this);
+        const data = Tab.getOr—ÓÁ‰‡Ú¸Instance(this);
 
         if (typeof config === 'string') {
           if (typeof data[config] === 'undefined') {
@@ -4757,7 +4757,7 @@
       return;
     }
 
-    const data = Tab.getOrCreateInstance(this);
+    const data = Tab.getOr—ÓÁ‰‡Ú¸Instance(this);
     data.show();
   });
   /**
@@ -4975,7 +4975,7 @@
 
     static jQueryInterface(config) {
       return this.each(function () {
-        const data = Toast.getOrCreateInstance(this, config);
+        const data = Toast.getOr—ÓÁ‰‡Ú¸Instance(this, config);
 
         if (typeof config === 'string') {
           if (typeof data[config] === 'undefined') {

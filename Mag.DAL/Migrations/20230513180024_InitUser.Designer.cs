@@ -35,7 +35,7 @@ namespace Mag.DAL.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("longtext");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime>("СоздатьdDate")
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Email")
