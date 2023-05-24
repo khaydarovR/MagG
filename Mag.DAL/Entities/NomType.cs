@@ -11,6 +11,7 @@ namespace Mag.DAL.Entities
     {
         public int Id { get; set; }
         [Required]
+        [Display(Name = "Название категории")]
         public string Title { get; set; }
     }
 }

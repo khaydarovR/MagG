@@ -12,87 +12,87 @@ using Microsoft.AspNetCore.Authorization;
 namespace Mag.Web.Controllers
 {
     [Authorize(Policy = "Root")]
-    public class StocksController : Controller
+    public class NomTypesController : Controller
     {
         private readonly AppDbContext _context;
 
-        public StocksController(AppDbContext context)
+        public NomTypesController(AppDbContext context)
         {
             _context = context;
         }
 
-        // GET: Stocks
+        // GET: NomTypes
         public async Task<IActionResult> Index()
         {
-              return _context.Stocks != null ? 
-                          View(await _context.Stocks.ToListAsync()) :
-                          Problem("Entity set 'AppDbContext.Stocks'  is null.");
+              return _context.NomTypes != null ? 
+                          View(await _context.NomTypes.ToListAsync()) :
+                          Problem("Entity set 'AppDbContext.NomTypes'  is null.");
         }
 
-        // GET: Stocks/Details/5
+        // GET: NomTypes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Stocks == null)
+            if (id == null || _context.NomTypes == null)
             {
                 return NotFound();
             }
 
-            var stock = await _context.Stocks
+            var nomType = await _context.NomTypes
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (stock == null)
+            if (nomType == null)
             {
                 return NotFound();
             }
 
-            return View(stock);
+            return View(nomType);
         }
 
-        // GET: Stocks/Create
+        // GET: NomTypes/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Stocks/Create
+        // POST: NomTypes/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Address,Description")] Stock stock)
+        public async Task<IActionResult> Create([Bind("Id,Title")] NomType nomType)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(stock);
+                _context.Add(nomType);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(stock);
+            return View(nomType);
         }
 
-        // GET: Stocks/Edit/5
+        // GET: NomTypes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Stocks == null)
+            if (id == null || _context.NomTypes == null)
             {
                 return NotFound();
             }
 
-            var stock = await _context.Stocks.FindAsync(id);
-            if (stock == null)
+            var nomType = await _context.NomTypes.FindAsync(id);
+            if (nomType == null)
             {
                 return NotFound();
             }
-            return View(stock);
+            return View(nomType);
         }
 
-        // POST: Stocks/Edit/5
+        // POST: NomTypes/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Address,Description")] Stock stock)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title")] NomType nomType)
         {
-            if (id != stock.Id)
+            if (id != nomType.Id)
             {
                 return NotFound();
             }
@@ -101,12 +101,12 @@ namespace Mag.Web.Controllers
             {
                 try
                 {
-                    _context.Update(stock);
+                    _context.Update(nomType);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!StockExists(stock.Id))
+                    if (!NomTypeExists(nomType.Id))
                     {
                         return NotFound();
                     }
@@ -117,49 +117,49 @@ namespace Mag.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(stock);
+            return View(nomType);
         }
 
-        // GET: Stocks/Delete/5
+        // GET: NomTypes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Stocks == null)
+            if (id == null || _context.NomTypes == null)
             {
                 return NotFound();
             }
 
-            var stock = await _context.Stocks
+            var nomType = await _context.NomTypes
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (stock == null)
+            if (nomType == null)
             {
                 return NotFound();
             }
 
-            return View(stock);
+            return View(nomType);
         }
 
-        // POST: Stocks/Delete/5
+        // POST: NomTypes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Stocks == null)
+            if (_context.NomTypes == null)
             {
-                return Problem("Entity set 'AppDbContext.Stocks'  is null.");
+                return Problem("Entity set 'AppDbContext.NomTypes'  is null.");
             }
-            var stock = await _context.Stocks.FindAsync(id);
-            if (stock != null)
+            var nomType = await _context.NomTypes.FindAsync(id);
+            if (nomType != null)
             {
-                _context.Stocks.Remove(stock);
+                _context.NomTypes.Remove(nomType);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool StockExists(int id)
+        private bool NomTypeExists(int id)
         {
-          return (_context.Stocks?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.NomTypes?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
