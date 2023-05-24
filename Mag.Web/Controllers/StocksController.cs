@@ -45,18 +45,18 @@ namespace Mag.Web.Controllers
             return View(stock);
         }
 
-        // GET: Stocks/Создать
-        public IActionResult Создать()
+        // GET: Stocks/Create
+        public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Stocks/Создать
+        // POST: Stocks/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Создать([Bind("Id,Title,Address,Description")] Stock stock)
+        public async Task<IActionResult> Create([Bind("Id,Title,Address,Description")] Stock stock)
         {
             if (ModelState.IsValid)
             {

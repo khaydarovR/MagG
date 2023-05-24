@@ -29,7 +29,7 @@ $.extend( $.fn, {
 			return;
 		}
 
-		// Check if a validator for this form was already Создатьd
+		// Check if a validator for this form was already Created
 		var validator = $.data( this[ 0 ], "validator" );
 		if ( validator ) {
 			return validator;
@@ -378,7 +378,7 @@ $.extend( $.validator, {
 		step: $.validator.format( "Please enter a multiple of {0}." )
 	},
 
-	autoСоздатьRanges: false,
+	autoCreateRanges: false,
 
 	prototype: {
 
@@ -942,7 +942,7 @@ $.extend( $.validator, {
 				error.html( message );
 			} else {
 
-				// Создать error element
+				// Create error element
 				error = $( "<" + this.settings.errorElement + ">" )
 					.attr( "id", elementID + "-error" )
 					.addClass( this.settings.errorClass )
@@ -1313,9 +1313,9 @@ $.extend( $.validator, {
 			}
 		} );
 
-		if ( $.validator.autoСоздатьRanges ) {
+		if ( $.validator.autoCreateRanges ) {
 
-			// Auto-Создать ranges
+			// Auto-Create ranges
 			if ( rules.min != null && rules.max != null ) {
 				rules.range = [ rules.min, rules.max ];
 				delete rules.min;

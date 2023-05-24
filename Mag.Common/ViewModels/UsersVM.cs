@@ -14,7 +14,7 @@ public class User
     public string Email { get; set; }
     public string PhoneNumber { get; set; }
     public string Id { get; set; }
-    public string СоздатьdDate { get; set; }
+    public string CreatedDate { get; set; }
     public string Role { get; set; }
     public string UserState { get; set; }
 

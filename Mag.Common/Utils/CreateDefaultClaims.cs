@@ -3,7 +3,7 @@ using Mag.Common;
 
 namespace Mag.BL.Utils;
 
-public static class ÑîçäàòüDefaultClaims
+public static class CreateDefaultClaims
 {
     public static List<Claim> Get(string email, string userName, string role = DefaultRoles.unknownConst)
     {

@@ -6,7 +6,7 @@ using Mag.Web;
 using Microsoft.EntityFrameworkCore;
 using static Mag.BL.Extensions.DbInitExtensions;
 
-var builder = WebApplication.СоздатьBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddAuthorization((opt) =>
@@ -63,7 +63,7 @@ app.UseEndpoints(endpoints =>
 });
 
 
-using (var scope = app.Services.СоздатьScope())
+using (var scope = app.Services.CreateScope())
 {
     DbInit(scope, builder.Configuration).GetAwaiter().GetResult();
 }

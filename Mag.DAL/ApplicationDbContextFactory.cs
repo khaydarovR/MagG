@@ -5,7 +5,7 @@ namespace Mag.DAL
 {
     public class ApplicationDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
     {
-        public AppDbContext СоздатьDbContext(string[] args)
+        public AppDbContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
             optionsBuilder.UseMySql(serverVersion: new MySqlServerVersion("8.0.32"),
