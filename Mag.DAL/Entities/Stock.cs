@@ -18,5 +18,10 @@ namespace Mag.DAL.Entities
         public string? Address { get; set; }
         [Display(Name = "Описание")]
         public string? Description { get; set; }
+
+        public override string ToString()
+        {
+            return Title;
+        }
     }
 }

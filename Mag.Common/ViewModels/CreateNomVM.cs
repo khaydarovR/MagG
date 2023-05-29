@@ -1,29 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 
-namespace Mag.DAL.Entities
+namespace Mag.Common.ViewModels
 {
-    public class Nom
+    public class CreateNomVM
     {
-        public int Id { get; set; }
         [Required]
         [Display(Name = "Категория")]
-        public NomType NType { get; set; }
+        public string NType { get; set; }
         [Required]
         [Display(Name = "Склад")]
-        public Stock Stock { get; set; }
+        public string Stock { get; set; }
 
         [Required]
         [Display(Name = "Название товара")]
         public string Title { get; set; }
 
-        [Required]
         [Display(Name = "Изображение")]
-        public string PhotoName { get; set; }
+        public IFormFile Photo { get; set; }
         [Display(Name = "Срок годности")]
         public int ShelfLife { get; set; }
 

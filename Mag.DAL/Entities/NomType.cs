@@ -13,5 +13,11 @@ namespace Mag.DAL.Entities
         [Required]
         [Display(Name = "Название категории")]
         public string Title { get; set; }
+
+
+        public override string ToString()
+        {
+            return Title;
+        }
     }
 }

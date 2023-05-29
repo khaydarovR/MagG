@@ -1,0 +1,64 @@
+﻿@model Mag.Common.ViewModels.CreateNomVM;
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Создать</h1>
+
+<h4>Товары</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+
+            <div>
+                <section>
+
+                </section>
+            </div>
+
+            <div class="form-group my-3">
+                <label asp-for="Stock" class="control-label"></label>
+                @Html.DropDownList("Author", ViewData["stocks"] as SelectList)
+            </div>
+
+            <div class="form-group my-3">
+                <label asp-for="NType" class="control-label"></label>
+                @Html.DropDownList("Author", ViewData["types"] as SelectList)
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Photo" class="control-label"></label>
+                <input type="file" class="form-control" accept="image/jpeg,image/jpg,image/png" />
+                <span asp-validation-for="Photo" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ShelfLife" class="control-label"></label>
+                <input asp-for="ShelfLife" class="form-control" />
+                <span asp-validation-for="ShelfLife" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Создать" class="btn btn-primary my-3" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -30,8 +30,4 @@
       <_ContentIncludedByDefault Remove="Areas\Account\Views\Register.cshtml" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="wwwroot\img\nom\" />
-    </ItemGroup>
-
 </Project>

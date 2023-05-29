@@ -50,22 +50,28 @@
           </div>
         </div>
         @if (User.FindFirst(ClaimTypes.Role).Value == DefaultRoles.rootConst
-                     || User.FindFirst(ClaimTypes.Role).Value == DefaultRoles.adminConst)
-                {
-                  <h6>Админ панель</h6>
-                  <hr/>
-                  <div class=" align-content-center align-self-center">
-                    <a asp-controller="User" asp-action="Index"  type="button" class="pt-4 text-black text-center btn btn-outline-info m-1 w-25" style="color: black; height: 150px">
-                      Покупатели
-                    </a>
-                        <a asp-controller="NomTypes" asp-action="Index"  type="button" class="pt-4 text-black text-center btn btn-outline-info m-1 w-25" style="color: black; height: 150px">
-                      Категории
-                    </a>
-                        <a asp-controller="Stocks" asp-action="Index" type="button" class="pt-4 text-black text-center btn btn-outline-info m-1 w-25" style="color: black; height: 150px">
-                      Склады
-                    </a>
-                  </div>
-                }
+             || User.FindFirst(ClaimTypes.Role).Value == DefaultRoles.adminConst)
+        {
+            <h6>Админ панель</h6>
+            <hr/>
+            <div class="align-content-center align-self-center">
+                <a asp-controller="User" asp-action="Index"  type="button" class="pt-4 text-black text-center btn btn-outline-info m-1 w-25" style="color: black; height: 150px">
+                    Покупатели
+                </a>
+
+                <a asp-controller="NomTypes" asp-action="Index"  type="button" class="pt-4 text-black text-center btn btn-outline-info m-1 w-25" style="color: black; height: 150px">
+                    Категории
+                </a>
+
+                <a asp-controller="Stocks" asp-action="Index" type="button" class="pt-4 text-black text-center btn btn-outline-info m-1 w-25" style="color: black; height: 150px">
+                    Склады
+                </a>
+
+                <a asp-controller="Noms" asp-action="Index" type="button" class="pt-4 text-black text-center btn btn-outline-info m-1 w-25" style="color: black; height: 150px">
+                    Товары
+                </a>
+            </div>
+        }
       </div>
     </div>
   </div>
