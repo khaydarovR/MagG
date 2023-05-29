@@ -144,4 +144,9 @@ public class AccountController: Controller
         }
         return View();
     }
+
+    public ActionResult AccessDenied(string returnUrl)
+    {
+        return View();
+    }
 }
