@@ -52,8 +52,8 @@ namespace Mag.Web.Controllers
         // GET: Noms/Create
         public IActionResult Create()
         {
-            ViewData["stocks"] = new SelectList(_context.Stocks.ToList(), "Id", "Title");
-            ViewData["types"] = new SelectList(_context.NomTypes.ToList(), "Id", "Title");
+            ViewBag.Stocks = _context.Stocks.ToList();
+            ViewBag.Types = _context.NomTypes.ToList();
 
             return View();
         }
@@ -72,8 +72,8 @@ namespace Mag.Web.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewData["stocks"] = new SelectList(_context.Stocks.ToList(), "Id", "Title");
-            ViewData["types"] = new SelectList(_context.NomTypes.ToList(), "Id", "Title");
+            ViewBag.Stocks = _context.Stocks.ToList();
+            ViewBag.Types = _context.NomTypes.ToList();
 
             return View(model);
         }

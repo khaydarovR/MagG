@@ -1,4 +1,5 @@
-﻿@model Mag.Common.ViewModels.CreateNomVM;
+﻿@using Mag.DAL.Entities;
+@model Mag.Common.ViewModels.CreateNomVM;
 
 @{
     ViewData["Title"] = "Create";
@@ -19,25 +20,29 @@
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
 
-            <div>
-                <section>
-
-                </section>
-            </div>
-
             <div class="form-group my-3">
                 <label asp-for="Stock" class="control-label"></label>
-                @Html.DropDownList("Author", ViewData["stocks"] as SelectList)
+                <select asp-for="Stock" class="form-select" aria-label="Default select example">
+                    @foreach (var item in ViewBag.Stocks)
+                    {
+                        <option value="@item.Id">@item.Title</option>
+                    }
+                </select>
             </div>
 
             <div class="form-group my-3">
                 <label asp-for="NType" class="control-label"></label>
-                @Html.DropDownList("Author", ViewData["types"] as SelectList)
+                <select asp-for="NType" class="form-select" aria-label="Default select example">
+                    @foreach (var item in ViewBag.Types)
+                    {
+                        <option value="@item.Id">@item.Title</option>
+                    }
+                </select>
             </div>
 
             <div class="form-group">
                 <label asp-for="Photo" class="control-label"></label>
-                <input type="file" class="form-control" accept="image/jpeg,image/jpg,image/png" />
+                <input asp-for="Photo" class="form-control" accept="image/jpeg,image/jpg,image/png" />
                 <span asp-validation-for="Photo" class="text-danger"></span>
             </div>
 
