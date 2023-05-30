@@ -9,9 +9,11 @@ using Mag.DAL;
 using Mag.DAL.Entities;
 using Mag.Common;
 using Mag.Common.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Mag.Web.Controllers
 {
+    [Authorize(Policy = "Root")]
     public class NomsController : Controller
     {
         private readonly AppDbContext _context;

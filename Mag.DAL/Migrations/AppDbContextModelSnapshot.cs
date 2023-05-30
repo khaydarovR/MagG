@@ -137,9 +137,13 @@ namespace Mag.DAL.Migrations
 
             modelBuilder.Entity("Mag.DAL.Entities.Order", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Adres")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<Guid>("AppUserId")
                         .HasColumnType("char(36)");
@@ -147,17 +151,17 @@ namespace Mag.DAL.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("NomId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
+
+                    b.Property<long>("SupplyId")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AppUserId");
 
-                    b.HasIndex("NomId");
+                    b.HasIndex("SupplyId");
 
                     b.ToTable("Orders");
                 });
@@ -360,15 +364,15 @@ namespace Mag.DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Mag.DAL.Entities.Nom", "Nom")
+                    b.HasOne("Mag.DAL.Entities.Supply", "Supply")
                         .WithMany()
-                        .HasForeignKey("NomId")
+                        .HasForeignKey("SupplyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("AppUser");
 
-                    b.Navigation("Nom");
+                    b.Navigation("Supply");
                 });
 
             modelBuilder.Entity("Mag.DAL.Entities.Supply", b =>

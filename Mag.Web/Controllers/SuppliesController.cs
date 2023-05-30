@@ -10,9 +10,11 @@ using Mag.DAL.Entities;
 using Microsoft.IdentityModel.Tokens;
 using Mag.Common.ViewModels;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Mag.Web.Controllers
 {
+    [Authorize(Policy = "Root")]
     public class SuppliesController : Controller
     {
         private readonly AppDbContext _context;

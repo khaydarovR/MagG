@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Mag.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230524122332_AddNom")]
-    partial class AddNom
+    [Migration("20230530220213_InitFixDb")]
+    partial class InitFixDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -112,9 +112,6 @@ namespace Mag.DAL.Migrations
                     b.Property<int>("ShelfLife")
                         .HasColumnType("int");
 
-                    b.Property<int>("StockId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -122,8 +119,6 @@ namespace Mag.DAL.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("NTypeId");
-
-                    b.HasIndex("StockId");
 
                     b.ToTable("Noms");
                 });
@@ -145,9 +140,13 @@ namespace Mag.DAL.Migrations
 
             modelBuilder.Entity("Mag.DAL.Entities.Order", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Adres")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<Guid>("AppUserId")
                         .HasColumnType("char(36)");
@@ -155,17 +154,17 @@ namespace Mag.DAL.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("NomId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
+
+                    b.Property<long>("SupplyId")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AppUserId");
 
-                    b.HasIndex("NomId");
+                    b.HasIndex("SupplyId");
 
                     b.ToTable("Orders");
                 });
@@ -189,6 +188,38 @@ namespace Mag.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Stocks");
+                });
+
+            modelBuilder.Entity("Mag.DAL.Entities.Supply", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("Capacity")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("NomId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StockId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NomId");
+
+                    b.HasIndex("StockId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Supply");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>
@@ -325,15 +356,7 @@ namespace Mag.DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Mag.DAL.Entities.Stock", "Stock")
-                        .WithMany()
-                        .HasForeignKey("StockId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("NType");
-
-                    b.Navigation("Stock");
                 });
 
             modelBuilder.Entity("Mag.DAL.Entities.Order", b =>
@@ -344,15 +367,42 @@ namespace Mag.DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Mag.DAL.Entities.Supply", "Supply")
+                        .WithMany()
+                        .HasForeignKey("SupplyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+
+                    b.Navigation("Supply");
+                });
+
+            modelBuilder.Entity("Mag.DAL.Entities.Supply", b =>
+                {
                     b.HasOne("Mag.DAL.Entities.Nom", "Nom")
                         .WithMany()
                         .HasForeignKey("NomId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("AppUser");
+                    b.HasOne("Mag.DAL.Entities.Stock", "Stock")
+                        .WithMany()
+                        .HasForeignKey("StockId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Mag.DAL.Entities.AppUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Nom");
+
+                    b.Navigation("Stock");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>

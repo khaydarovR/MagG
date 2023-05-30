@@ -1,0 +1,47 @@
+﻿@using Mag.Web.Controllers;
+@using Mag.Common;
+
+@model CreateOrderVM;
+
+@{
+    ViewBag.Title = "Заказать";
+}
+
+
+<h2>Заказать</h2>
+<div class="card flex-row">
+    <img class="card-img-left example-card-img-responsive"
+         style="width: 500px"
+         src="@Literals.PathForProdImg@Model.PhotoName" />
+    <div class="card-body">
+        <div class="card-body my-2">
+            <h5 class="card-title">@Model.Title</h5>
+            <h5 class="card-title">@Model.Price руб.</h5>
+            <h6 class="card-subtitle mb-2 text-muted">@Model.NType</h6>
+            <h6 class="card-subtitle mb-2">Срок: @Model.ShelfLife дн.</h6>
+            <br />
+            <form asp-action="AddOrder" method="post">
+                <label asp-for="Capacity" class="control-label"></label>
+                <select asp-for="@Model.Capacity" class="form-select" aria-label="Default select example">
+                    @for (int i = 1; i < 6; i++)
+                    {
+                        <option value="@i">@i</option>
+                    }
+                </select>
+
+                <label>Куда доставить (адрес)</label>
+                <textarea class="form-control" asp-for="@Model.Adres"></textarea>
+
+                <button asp-action="AddOrder" 
+                asp-route-supplyId="@Model.SupplyId"
+                asp-route-adres="@Model.Adres"
+                asp-route-capacity="@Model.Capacity"
+
+                        class="btn btn-info">
+                    Купить
+                </button>
+            </form>
+
+        </div>
+    </div>
+</div>

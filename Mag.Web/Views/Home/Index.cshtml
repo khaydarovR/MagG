@@ -1,7 +1,81 @@
-﻿@model dynamic
+﻿@using Mag.DAL.Entities;
+@using Mag.Common;
+
+@model List<Supply>;
 
 @{
     ViewBag.Title = "Home";
 }
 
-<h2>Home page</h2>
+<h2>ZGmarket</h2>
+
+<div class="row">
+    <div class="col-3">
+        <ul class="list-group">
+            @foreach(var item in ViewBag.Types)
+            {
+                <li class="list-group-item">
+                    <a asp-action="Filter" asp-route-typeId="@item.Id" class="btn">@item.Title</a>
+                </li>
+            }
+        </ul>
+    </div>
+
+
+    <div class="col">
+        <div class="input-group">
+            <input type="search" class="form-control rounded" placeholder="Поиск" aria-label="Search" aria-describedby="search-addon" />
+            <button type="button" class="btn btn-outline-primary">Найти</button>
+        </div>
+
+        <div class="container d-flex justify-content-center mt-50 mb-50">
+
+            <div class="row">
+
+                @foreach(var item in Model)
+                {
+                    <div class="col-md-4 mt-2" style="height: 600px">
+
+
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="card-img-actions">
+                                    <img src="@Literals.PathForProdImg@item.Nom.PhotoName" class="card-img img-fluid"
+                                    width="100" height="300" alt="">
+                                </div>
+                            </div>
+
+                            <div class="card-body bg-light text-center">
+                                <div class="mb-2">
+                                    <h6 class="font-weight-semibold mb-2">
+                                        <p href="#" class="text-default mb-2" data-abc="true">@item.Nom.Title</p>
+                                    </h6>
+
+                                    <p href="#" class="text-muted" data-abc="true">@item.Nom.NType.Title</p>
+                                </div>
+
+                                <h3 class="mb-0 font-weight-semibold">@item.Nom.Price руб.</h3>
+
+                                <div class="text-muted mb-3">@item.Capacity шт.</div>
+@*                                <select asp-for="@item.Capacity" class="form-control">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>*@
+                                <a asp-action="CreateOrder" type="submit" asp-route-supplyId="@item.Id"
+                                     class="btn btn-info">Заказать</a>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
