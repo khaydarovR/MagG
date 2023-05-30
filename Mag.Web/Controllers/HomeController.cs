@@ -69,6 +69,11 @@ public class HomeController : Controller
     [Authorize]
     public async Task<ActionResult> AddOrder(int capacity, long supplyId, string adres)
     {
+        if(adres is null)
+        {
+            ModelState.AddModelError("", "Укажите аддрес");
+            return RedirectToAction("CreateOrder", new { supplyId = supplyId });
+        }
         ViewBag.Types = await _context.NomTypes.ToListAsync();
         var suply = await _context.Supply.SingleAsync(t => t.Id == supplyId);
         if(suply.Capacity < capacity)

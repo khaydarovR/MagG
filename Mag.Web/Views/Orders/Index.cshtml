@@ -7,7 +7,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Ожидает доставки</h1>
 
 @if (DefaultRoles.rootConst == User.Claims.First(c => c.Type == ClaimTypes.Role).Value)
 {
@@ -34,6 +34,13 @@
             <th>
                 @Html.DisplayNameFor(model => model.Date)
             </th>
+            <th>
+                Название товара
+            </th>
+            <th>
+                
+            </th>
+
             <th></th>
         </tr>
     </thead>
@@ -50,10 +57,22 @@
                 @Html.DisplayFor(modelItem => item.Date)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                @Html.DisplayFor(modelItem => item.Supply.Nom.Title)
             </td>
+
+            <td>
+                <img src="@Literals.PathForProdImg@item.Supply.Nom.PhotoName" style="width: 100px" />
+            </td>
+
+                @if (DefaultRoles.rootConst == User.Claims.First(c => c.Type == ClaimTypes.Role).Value)
+                {
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Редактировать</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Подробно</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
+                    </td>
+                }
+
         </tr>
 }
     </tbody>
