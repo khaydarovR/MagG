@@ -7,7 +7,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Ожидает доставки</h1>
+<h1>Ожидает доставки...</h1>
 
 @if (DefaultRoles.rootConst == User.Claims.First(c => c.Type == ClaimTypes.Role).Value)
 {
@@ -40,6 +40,9 @@
             <th>
                 
             </th>
+            <th>
+                Клиент
+            </th>
 
             <th></th>
         </tr>
@@ -64,8 +67,13 @@
                 <img src="@Literals.PathForProdImg@item.Supply.Nom.PhotoName" style="width: 100px" />
             </td>
 
+
                 @if (DefaultRoles.rootConst == User.Claims.First(c => c.Type == ClaimTypes.Role).Value)
                 {
+                    <td>
+                        <p>Имя - @item.AppUser.UserName</p>
+                        <p>Почта - @item.AppUser.Email</p>
+                    </td>
                     <td>
                         <a asp-action="Edit" asp-route-id="@item.Id">Редактировать</a> |
                         <a asp-action="Details" asp-route-id="@item.Id">Подробно</a> |
