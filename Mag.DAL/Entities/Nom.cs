@@ -13,9 +13,6 @@ namespace Mag.DAL.Entities
         [Required]
         [Display(Name = "Категория")]
         public NomType NType { get; set; }
-        [Required]
-        [Display(Name = "Склад")]
-        public Stock Stock { get; set; }
 
         [Required]
         [Display(Name = "Название товара")]

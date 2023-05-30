@@ -5,10 +5,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Details</h1>
+<h1>Подробные данные</h1>
 
 <div>
-    <h4>Stock</h4>
+    <h4>Склад</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -35,3 +35,26 @@
     <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
     <a asp-action="Index">Назад</a>
 </div>
+
+<h1>Товары на складе</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Товар</th>
+            <th scope="col">Количество</th>
+            <th scope="col">Принимал</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var suply in ViewBag.Suplies)
+        {
+            <tr>
+                <th scope="row">@suply.Id</th>
+                <td>@suply.Nom.Title</td>
+                <td>@suply.Capacity</td>
+                <td>@suply.User.UserName</td>
+            </tr>
+        }
+    </tbody>
+</table>

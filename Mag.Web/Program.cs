@@ -24,16 +24,16 @@ builder.Services.AddAuthorization((opt) =>
 
 builder.Services.AddIdentityDependency();
 builder.Services.AddDependencyServices();
-builder.Services.AddDependencyDbContext(builder.Configuration);
-//builder.Services.AddDbContext<AppDbContext>(options =>
-    //options.UseMySql(serverVersion: new MySqlServerVersion("8.0.32"),
-                    // connectionString: "Server=localhost; Port=3306; Database=mag; Uid=root; Pwd=root;"));
+//builder.Services.AddDependencyDbContext(builder.Configuration);
+builder.Services.AddDbContext<AppDbContext>(options =>
+options.UseMySql(serverVersion: new MySqlServerVersion("8.0.32"),
+ connectionString: "Server=localhost; Port=3306; Database=mag; Uid=root; Pwd=root;"));
 
-//builder.Services.ConfigureApplicationCookie(conf =>
-//{
-//    conf.LoginPath = "/Account/Login";
-//    conf.AccessDeniedPath = "/Shared/AccessDenied";
-//});
+/*builder.Services.ConfigureApplicationCookie(conf =>
+{
+    conf.LoginPath = "/Account/Login";
+    conf.AccessDeniedPath = "/Shared/AccessDenied";
+});*/
 
 var app = builder.Build();
 

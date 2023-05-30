@@ -18,6 +18,7 @@ public class AppDbContext: IdentityDbContext<AppUser, IdentityRole<Guid>, Guid,
     public DbSet<NomType> NomTypes { get; set; }
     public DbSet<Nom> Noms { get; set; }
     public DbSet<Order> Orders { get; set; }
+    public DbSet<Supply> Supply { get; set; }
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
         

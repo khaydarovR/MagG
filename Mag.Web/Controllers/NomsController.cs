@@ -52,7 +52,6 @@ namespace Mag.Web.Controllers
         // GET: Noms/Create
         public IActionResult Create()
         {
-            ViewBag.Stocks = _context.Stocks.ToList();
             ViewBag.Types = _context.NomTypes.ToList();
 
             return View();
@@ -72,7 +71,6 @@ namespace Mag.Web.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewBag.Stocks = _context.Stocks.ToList();
             ViewBag.Types = _context.NomTypes.ToList();
 
             return View(model);
@@ -82,12 +80,10 @@ namespace Mag.Web.Controllers
         {
             var photoName = await SaveImage(model.Photo);
             var type = await _context.NomTypes.SingleAsync(m => m.Id == int.Parse(model.NType));
-            var stock = await _context.Stocks.SingleAsync(m => m.Id == int.Parse(model.Stock));
 
             var newNom = new Nom()
             {
                 NType = type,
-                Stock = stock,
                 PhotoName = photoName,
                 Price = model.Price,
                 ShelfLife = model.ShelfLife,
@@ -177,6 +173,7 @@ namespace Mag.Web.Controllers
             var nom = await _context.Noms.FindAsync(id);
             if (nom != null)
             {
+                DeleteOldImage(nom.PhotoName);
                 _context.Noms.Remove(nom);
             }
             

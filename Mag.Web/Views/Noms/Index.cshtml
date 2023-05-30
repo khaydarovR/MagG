@@ -1,4 +1,6 @@
-﻿@model IEnumerable<Mag.DAL.Entities.Nom>
+﻿@using Mag.Common;
+
+@model IEnumerable<Mag.DAL.Entities.Nom>
 
 @{
     ViewData["Title"] = "Index";
@@ -35,18 +37,18 @@
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PhotoName)
+                <img src="@Literals.PathForProdImg@item.PhotoName" style="width: 100px" />
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ShelfLife)
+                @Html.DisplayFor(modelItem => item.ShelfLife) дн.
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.Id">Редактировать</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Подробно</a> |
+                <a class="text-danger" asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
             </td>
         </tr>
 }

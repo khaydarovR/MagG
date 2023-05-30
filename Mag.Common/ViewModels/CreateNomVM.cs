@@ -10,9 +10,6 @@ namespace Mag.Common.ViewModels
         [Required]
         [Display(Name = "Категория")]
         public string NType { get; set; }
-        [Required]
-        [Display(Name = "Склад")]
-        public string Stock { get; set; }
 
         [Required]
         [Display(Name = "Название товара")]

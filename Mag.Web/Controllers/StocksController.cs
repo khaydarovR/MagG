@@ -43,7 +43,11 @@ namespace Mag.Web.Controllers
             {
                 return NotFound();
             }
-
+            ViewBag.Suplies = _context.Supply
+                .Where(m => m.Stock == stock)
+                .Include(n => n.Nom)
+                .Include(t => t.User)
+                .ToList();
             return View(stock);
         }
 
@@ -130,6 +134,7 @@ namespace Mag.Web.Controllers
 
             var stock = await _context.Stocks
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (stock == null)
             {
                 return NotFound();
