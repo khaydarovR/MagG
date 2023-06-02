@@ -1,19 +1,38 @@
 # MagClear
 Интернет магазин. MVC. Слоёная архитектура. CRUD
 
+Сайт доступен по ссылке: http://93.95.97.226/
+
+[Скрины](#скрины)
+
+
+## Архитектура проекта:
+![image](https://github.com/khaydarovR/MagG/assets/95288769/cc193b6f-a220-40cf-a112-a70fda0444bd)
+
 **Стэк:**
 - Трёхслойная архитектура: *WEB->BL->DAL*
 - MVC
 - Identity
 - EF core
-- MySql
-- Docker/ docker-compose
+- MySql 8
+- Nginx
 
 **Функционал:**
-- Аутентефакция\Авторазиция на JWT
-- Админка
-- CRUD товаров
-- Корзина
-- Система оповищений (email)
-- Верификация аккаунта
+- Создание номенклатуры
+- Регистрация поставок
+- Учет количества товаров
+- Возможность заказывать
+- Промиотр заказов с админки
+
+# Скрины
+![image](https://github.com/khaydarovR/MagG/assets/95288769/5b48d168-e4e4-43b8-a18d-c506bfb0c090)
+![image](https://github.com/khaydarovR/MagG/assets/95288769/1e56fbae-7495-4c40-b441-4f313af0c276)
+![image](https://github.com/khaydarovR/MagG/assets/95288769/6c5ba9d8-507a-4eeb-bb13-2811713f6b73)
+![image](https://github.com/khaydarovR/MagG/assets/95288769/7c8ee93b-57c9-46a7-a2a7-b8aefc4ecffd)
+![image](https://github.com/khaydarovR/MagG/assets/95288769/e50e3340-857b-444a-98b2-a9a641fbe39d)
+![image](https://github.com/khaydarovR/MagG/assets/95288769/f1856380-8d47-439f-90b3-fef45b2c46f7)
+![image](https://github.com/khaydarovR/MagG/assets/95288769/8b4c2a6c-af12-4dea-9e39-9e90fb2702d2)
+
+
+
 
