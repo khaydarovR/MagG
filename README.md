@@ -1,13 +1,14 @@
 # MagClear
 Интернет магазин. MVC. Слоёная архитектура. CRUD
 
-Сайт доступен по ссылке: http://93.95.97.226/
+(Сайт доступен по ссылке: http://93.95.97.226/)
 
 [Скрины](#скрины)
 
 
 ## Архитектура проекта:
-![image](https://github.com/khaydarovR/MagG/assets/95288769/cc193b6f-a220-40cf-a112-a70fda0444bd)
+![image](https://github.com/khaydarovR/MagG/assets/95288769/4d2b33b9-1bbf-42bb-b367-9e1bc13151d4)
+
 
 **Стэк:**
 - Трёхслойная архитектура: *WEB->BL->DAL*
